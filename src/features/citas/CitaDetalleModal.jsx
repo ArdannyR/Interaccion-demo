@@ -177,14 +177,14 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita, onCancel
         </div>
 
         {!showConfirm && (
-          <div className="p-4 sm:p-5 border-t border-(--color-border) flex flex-col-reverse sm:flex-row justify-between items-stretch sm:items-center gap-2 sm:gap-4 bg-(--color-surface-hover) rounded-b-none sm:rounded-b-2xl pb-safe shrink-0">
+          <div className="p-4 sm:p-5 pt-3.5 pb-[max(2.25rem,calc(env(safe-area-inset-bottom,0px)+1.75rem))] sm:pb-5 border-t border-(--color-border) flex flex-col-reverse sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-4 bg-(--color-surface-hover) rounded-b-none sm:rounded-b-2xl shrink-0">
             <button 
               onClick={() => setShowConfirm(true)}
               className="min-h-11 w-full sm:w-auto text-(--color-danger-600) font-semibold px-4 py-2 hover:bg-(--color-danger-50) rounded-xl transition-colors cursor-pointer flex items-center justify-center"
             >
               Cancelar cita
             </button>
-            <Button onClick={() => onEdit(cita)} className="w-full sm:w-auto">
+            <Button onClick={() => onEdit(cita)} className="w-full sm:w-auto min-h-11">
               Editar
             </Button>
           </div>

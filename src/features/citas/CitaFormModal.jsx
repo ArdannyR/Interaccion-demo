@@ -15,7 +15,6 @@ import {
 } from '../../utils/fechas';
 import { Button } from '../../components/Button';
 import { DateInput } from '../../components/DateInput';
-import { Input } from '../../components/Input';
 import { Select } from '../../components/Select';
 import { Textarea } from '../../components/Textarea';
 import { Spinner } from '../../components/Spinner';
@@ -345,8 +344,8 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
                 </div>
               )}
 
-              {/* Campos de fecha y hora */}
-              <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-4">
+              {/* Campos de fecha y hora (en vertical en móvil, 2 columnas desde sm) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <DateInput
                   label={esSerie ? `Primera cita (${diaNombre || 'día'}) *` : 'Fecha *'}
                   name="fecha"
@@ -372,21 +371,61 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
               {/* Controles de serie (Durante N semanas / meses) */}
               {esSerie && (
                 <div className="p-4 rounded-xl border border-(--color-secondary-200) bg-(--color-secondary-50)/40 space-y-4 animate-scale-in">
-                  <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-4">
-                    <Input
-                      label="Durante *"
-                      type="number"
-                      min={1}
-                      max={serieUnidad === 'semanas' ? 52 : 12}
-                      value={serieCantidad}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value, 10) || 1;
-                        const maxVal = serieUnidad === 'semanas' ? 52 : 12;
-                        setSerieCantidad(Math.min(Math.max(1, val), maxVal));
-                        setConflictosSubmit(null);
-                      }}
-                      required
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5 min-w-0">
+                      <label className="text-base font-medium text-(--color-text-main) break-words">
+                        Durante *
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSerieCantidad(prev => Math.max(prev - 1, 1));
+                            setConflictosSubmit(null);
+                          }}
+                          disabled={serieCantidad <= 1}
+                          aria-label="Disminuir cantidad"
+                          className="w-11 h-11 min-w-11 min-h-11 rounded-xl border-2 border-(--color-primary-400) bg-(--color-surface) hover:bg-(--color-surface-hover) active:bg-(--color-primary-50) text-(--color-primary-800) flex items-center justify-center transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer shrink-0 shadow-xs active:scale-95"
+                          title="Disminuir"
+                        >
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                          </svg>
+                        </button>
+                        <div className="relative flex-1 min-w-0">
+                          <input
+                            type="number"
+                            min={1}
+                            max={serieUnidad === 'semanas' ? 52 : 12}
+                            value={serieCantidad}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value, 10) || 1;
+                              const maxVal = serieUnidad === 'semanas' ? 52 : 12;
+                              setSerieCantidad(Math.min(Math.max(1, val), maxVal));
+                              setConflictosSubmit(null);
+                            }}
+                            className="w-full min-w-0 min-h-11 px-3.5 py-2.5 rounded-xl border-2 text-base text-center font-bold bg-(--color-surface) text-(--color-text-main) border-(--color-primary-400) focus:border-(--color-primary-500) focus:ring-4 focus:ring-(--color-primary-100) outline-none transition-all"
+                            required
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const maxVal = serieUnidad === 'semanas' ? 52 : 12;
+                            setSerieCantidad(prev => Math.min(prev + 1, maxVal));
+                            setConflictosSubmit(null);
+                          }}
+                          disabled={serieCantidad >= (serieUnidad === 'semanas' ? 52 : 12)}
+                          aria-label="Aumentar cantidad"
+                          className="w-11 h-11 min-w-11 min-h-11 rounded-xl border-2 border-(--color-primary-400) bg-(--color-surface) hover:bg-(--color-surface-hover) active:bg-(--color-primary-50) text-(--color-primary-800) flex items-center justify-center transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer shrink-0 shadow-xs active:scale-95"
+                          title="Aumentar"
+                        >
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
 
                     <Select
                       label="Unidad *"
@@ -444,11 +483,12 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
           )}
         </div>
 
-        <div className="p-4 sm:p-5 border-t border-(--color-border) flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-4 bg-(--color-surface-hover) rounded-b-none sm:rounded-b-2xl pb-safe shrink-0">
-          <Button variant="outline" type="button" onClick={onClose} disabled={saving} className="w-full sm:w-auto">
+        {/* Pie de modal: botones ligeramente más arriba para evitar botones virtuales de celular */}
+        <div className="p-4 sm:p-5 pt-3.5 pb-[max(2.25rem,calc(env(safe-area-inset-bottom,0px)+1.75rem))] sm:pb-5 border-t border-(--color-border) flex flex-col-reverse sm:flex-row justify-end gap-3 sm:gap-4 bg-(--color-surface-hover) rounded-b-none sm:rounded-b-2xl shrink-0">
+          <Button variant="outline" type="button" onClick={onClose} disabled={saving} className="w-full sm:w-auto min-h-11">
             Cancelar
           </Button>
-          <Button type="submit" form="cita-form" disabled={saving || loadingOptions} className="w-full sm:w-auto">
+          <Button type="submit" form="cita-form" disabled={saving || loadingOptions} className="w-full sm:w-auto min-h-11">
             {saving ? <Spinner size="sm" /> : (esSerie ? 'Crear Serie de Citas' : 'Guardar Cita')}
           </Button>
         </div>
