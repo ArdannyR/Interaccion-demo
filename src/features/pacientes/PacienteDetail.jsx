@@ -110,6 +110,12 @@ export function PacienteDetail() {
     fetchCitas();
   };
 
+  const handleCancelSerieDesde = async (serieId, desdeFecha) => {
+    await citasService.cancelarDesde(serieId, desdeFecha);
+    setModalDetalleOpen(false);
+    fetchCitas();
+  };
+
   if (loading) return <div className="flex justify-center p-12"><Spinner /></div>;
   if (error) return <div className="text-(--color-danger-600) text-center p-12 text-lg">{error}</div>;
   if (!paciente) return <div className="text-center p-12 text-lg">Paciente no encontrado</div>;
@@ -202,7 +208,7 @@ export function PacienteDetail() {
 
             <div className="relative">
               {loadingCitas && (
-                <div className="absolute inset-0 bg-white/50 z-10 flex items-center justify-center rounded-xl">
+                <div className="absolute inset-0 bg-(--color-surface)/50 z-10 flex items-center justify-center rounded-xl">
                   <Spinner />
                 </div>
               )}
@@ -286,6 +292,7 @@ export function PacienteDetail() {
             setModalFormOpen(true);
           }}
           onCancelCita={handleCancelCita}
+          onCancelSerieDesde={handleCancelSerieDesde}
         />
       )}
 

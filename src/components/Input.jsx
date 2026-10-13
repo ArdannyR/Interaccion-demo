@@ -16,7 +16,7 @@ export const Input = forwardRef(function Input({ label, error, className = '', .
         className={`w-full px-4 py-3 rounded-xl border-2 text-lg bg-(--color-surface) text-(--color-text-main) transition-all outline-none ${
           error 
             ? 'border-(--color-danger-500) focus:ring-4 focus:ring-(--color-danger-100) bg-(--color-danger-50)' 
-            : 'border-(--color-border) focus:border-(--color-primary-500) focus:ring-4 focus:ring-(--color-primary-100) hover:border-(--color-primary-300)'
+            : 'border-(--color-primary-400) focus:border-(--color-primary-500) focus:ring-4 focus:ring-(--color-primary-100) hover:border-(--color-primary-500)'
         }`}
         {...props}
       />

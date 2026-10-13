@@ -6,6 +6,7 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Spinner } from '../../components/Spinner';
 import { DateInput } from '../../components/DateInput';
+import { Textarea } from '../../components/Textarea';
 
 // Utility para calcular edad en años y meses
 function calcularEdad(fechaNacimiento) {
@@ -167,28 +168,24 @@ export function PlanForm() {
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="block text-lg font-medium text-(--color-text-main)">Objetivo inicial de tratamiento *</label>
-          <textarea
-            name="objetivo_inicial"
-            value={formData.objetivo_inicial}
-            onChange={handleChange}
-            required
-            rows={4}
-            className="w-full px-4 py-3 border border-(--color-border) rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-(--color-primary-500) bg-(--color-surface) text-lg resize-y"
-          ></textarea>
-        </div>
+        <Textarea
+          label="Objetivo inicial de tratamiento *"
+          name="objetivo_inicial"
+          value={formData.objetivo_inicial}
+          onChange={handleChange}
+          required
+          rows={4}
+        />
 
-        <div className="space-y-2">
-          <label className="block text-lg font-medium text-(--color-text-main)">Objetivos reales alcanzados</label>
-          <p className="text-sm text-(--color-text-muted) mb-2">Se completa más adelante</p>
-          <textarea
+        <div className="space-y-1">
+          <Textarea
+            label="Objetivos reales alcanzados"
             name="objetivos_alcanzados"
             value={formData.objetivos_alcanzados}
             onChange={handleChange}
             rows={4}
-            className="w-full px-4 py-3 border border-(--color-border) rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-(--color-primary-500) bg-(--color-surface) text-lg resize-y"
-          ></textarea>
+          />
+          <p className="text-sm text-(--color-text-muted)">Se completa más adelante</p>
         </div>
 
         <div className="pt-6">

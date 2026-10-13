@@ -73,14 +73,14 @@ El proyecto soporta el escalado dinámico del tamaño del texto a través del at
 
 ### Button
 Componente centralizado con distintas variantes que mapean automáticamente a la paleta correcta:
-- `variant="primary"`: Gradiente azul (`--primary-500` a `--primary-700`) con texto en blanco. Efecto de traslación (`hover:-translate-y-0.5`) y escala (`active:scale-95`).
+- `variant="primary"`: Gradiente azul (`--primary-500` a `--primary-700`) con texto en blanco. Efecto hover oscureciendo (`hover:from-(--color-primary-600) hover:to-(--color-primary-800)`), sombra con color en sintaxis Tailwind v4 `shadow-(color:--color-primary-500)/30`. Efecto de traslación (`hover:-translate-y-0.5`) y escala (`active:scale-95`).
 - `variant="secondary"`: Fondo neutro para acciones secundarias (`--surface-hover`).
-- `variant="accent"`: Fondo salmón/rosa (`--accent-500` o `--secondary-400`) con texto oscuro (`--primary-900`).
-- `variant="outline"`: Botones con borde transparente y texto primario, ideal para cancelar o retroceder.
-- `variant="danger"`: Usando tokens de `danger` para acciones destructivas.
+- `variant="accent"`: Fondo salmón (`--secondary-400`) con texto oscuro (`--primary-900`) y sombra `shadow-(color:--color-secondary-400)/30`.
+- `variant="outline"`: Botones con borde primario y texto primario, fondo `--surface`, ideal para cancelar o retroceder.
+- `variant="danger"`: Usando tokens de `danger` para acciones destructivas y sombra `shadow-(color:--color-danger-600)/30`.
 
-### Input
-Los campos de entrada utilizan un fondo de superficie (`--surface`), bordes predeterminados (`--border`), y cambian el borde y el anillo de foco (`focus:ring`) utilizando `--primary-500` y `--primary-100`. En caso de error, el componente cambia a los tonos `danger`.
+### Input, Select, Textarea y DateInput
+Los campos de entrada utilizan un fondo de superficie (`--surface`), bordes en reposo `--color-primary-400` (contraste 3.5:1), y cambian el borde y el anillo de foco (`focus:ring`) utilizando `--primary-500` y `--primary-100`. En caso de error, el componente cambia a los tonos `danger`. `--color-border` queda reservado para bordes decorativos de tarjetas y modales.
 
 ### Card
 Estructuras con `rounded-xl` o `rounded-2xl` y `shadow-sm`. Contienen un efecto de flotación en `hover` con una pequeña línea indicadora en la parte superior.
@@ -111,3 +111,51 @@ Para alterar cualquier color del sitio, o realizar un rediseño general en el fu
 1. Abrir `src/styles/theme.css`.
 2. Reemplazar los valores Hexadecimales correspondientes en la raíz de `:root`.
 3. Guardar el archivo; el sistema de Tailwind v4 con CSS Variables se encargará de propagar el nuevo color en todo el proyecto automáticamente. No modifiques el archivo `index.css` a menos que sea para agregar nuevos nombres lógicos.
+
+---
+
+## 8. Estética del Panel (Distribución de Color)
+
+El panel de administración sigue una distribución intencional de color:
+
+| Proporción | Rol | Uso |
+| :--- | :--- | :--- |
+| **~60%** | Neutro / Blanco | Fondo general (`--background`, `--surface`), texto, bordes. |
+| **~25%** | Azul (Primary) | Títulos, textos activos, botón principal, sidebar logo, texto en botones de tarjeta. |
+| **~15%** | Rosa / Salmón (Accent + Secondary) | Decoraciones, línea de PageHeader, indicadores activos del sidebar, fondos de cabeceras de tarjetas, hovers cálidos, badges de series. |
+
+### PageHeader
+Cada vista principal usa el componente `PageHeader` que incluye:
+- Título `h1` en `text-(--color-text-main)`.
+- Línea decorativa de **3 rem** (`w-12 h-1`) con gradiente `from-(--color-accent-400) to-(--color-secondary-400)`.
+- Subtítulo opcional en `text-(--color-text-muted)`.
+- Slot derecho (`actions` o `children`) para botones de acción.
+
+### Barra Lateral (Sidebar)
+- **Logo:** Letra "I" en `--primary-900` sobre círculo con gradiente `accent→secondary`.
+- **Línea separadora:** 3 rem con gradiente `accent→secondary`.
+- **Etiqueta "MENÚ":** en `--primary-300`, tracking ancho, uppercase.
+- **Íconos del menú:** Cajas de 2.25 rem (`w-9 h-9`), colores alternados:
+  - Pacientes, Horarios, Pagos → fondo `accent-100`, ícono `accent-700`.
+  - Terapeutas, Perfil, Ajustes → fondo `secondary-100`, ícono `secondary-700`.
+- **Estado activo del ítem:** Fondo sólido `accent-400` (o `secondary-400`), ícono `primary-900`, indicador lateral con gradiente `accent→secondary`.
+- **Bloque de usuario:** Avatar con gradiente `accent→secondary`, nombre en blanco, botón logout rosa suave.
+
+### Tarjetas
+- **Card:** Línea top on-hover con gradiente `accent-400 → secondary-400`.
+- **PacienteCard:** Cabecera con gradiente `accent-50 → secondary-100`, anillo de avatar `accent-300 → secondary-400`, ícono avatar `accent-500`. Botón "Datos" hover en `accent-50`; botón "Diagnóstico" hover en `secondary-50` con label `secondary-700`.
+- **TerapeutaCard:** Cabeceras alternadas entre `accent-50` y `secondary-50` según índice par/impar.
+
+### Roles de Botones de Acción
+- **"+ Añadir paciente"** y **"+ Nueva cita"** usan `variant="accent"` (fondo `--secondary-400`, texto `--primary-900`).
+- **Acciones principales** (guardar, confirmar) usan `variant="primary"`.
+- **Cancelar / volver** usan `variant="outline"`.
+- **Acciones destructivas** usan `variant="danger"`.
+
+### Opciones de Selección (Ajustes)
+- **Seleccionado:** Borde `accent-400`, fondo `accent-50`.
+- **No seleccionado:** Borde `border`, hover en `accent-300`.
+
+### Perfil
+- Banda decorativa superior con gradiente `accent-100 → secondary-100 → accent-50`.
+- Avatar con fondo `accent-100`, ícono `accent-500`, anillo blanco (`ring-4 ring-(--color-surface)`).

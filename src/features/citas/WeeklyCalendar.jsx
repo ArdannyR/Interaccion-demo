@@ -25,13 +25,8 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
 
   useEffect(() => {
     const idx = dias.findIndex(d => d.fecha === hoy);
-    if (idx !== -1) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSelectedDayIndex(idx);
-    } else {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSelectedDayIndex(0);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSelectedDayIndex(idx !== -1 ? idx : 0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [semanaInicio]);
 
@@ -100,17 +95,17 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                   <button
                     key={d.fecha}
                     onClick={() => setSelectedDayIndex(i)}
-                    className={`flex-1 py-3 flex flex-col items-center transition-colors ${
+                    className={`flex-1 py-3 flex flex-col items-center transition-colors cursor-pointer ${
                       isSelected 
-                        ? 'border-b-2 border-(--color-primary-600) bg-(--color-primary-50)' 
+                        ? 'border-b-2 border-(--color-accent-500) bg-(--color-accent-50)' 
                         : 'hover:bg-(--color-surface-hover)'
                     }`}
                   >
-                    <span className={`text-sm font-bold ${isSelected ? 'text-(--color-primary-700)' : 'text-(--color-text-muted)'}`}>
+                    <span className={`text-sm font-bold ${isSelected ? 'text-(--color-primary-800)' : 'text-(--color-text-muted)'}`}>
                       {d.letra}
                     </span>
                     <span className={`text-xs mt-1 px-2 py-0.5 rounded-full ${
-                      isHoy ? 'bg-(--color-primary-500) text-white' : (isSelected ? 'text-(--color-primary-800)' : 'text-(--color-text-muted)')
+                      isHoy ? 'bg-(--color-secondary-400) text-(--color-primary-900) font-bold' : (isSelected ? 'text-(--color-primary-800)' : 'text-(--color-text-muted)')
                     }`}>
                       {d.fecha.split('-')[2]}
                     </span>
@@ -134,13 +129,18 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                     {cita ? (
                       <button 
                         onClick={() => onClickCita(cita)}
-                        className="flex-1 bg-linear-to-br from-(--color-primary-100) to-(--color-primary-200) border-l-[3px] border-(--color-primary-500) rounded-r-lg shadow-sm p-2 text-left hover:-translate-y-[1px] hover:shadow-md transition-all group overflow-hidden"
+                        className="flex-1 bg-linear-to-br from-(--color-accent-100) to-(--color-secondary-100) border-l-[3px] border-(--color-accent-500) rounded-r-lg shadow-xs p-2 text-left hover:-translate-y-[1px] hover:shadow-md transition-all group overflow-hidden cursor-pointer"
                       >
-                        <div className="font-semibold text-(--color-primary-800) truncate leading-tight">
+                        <div className="font-semibold text-(--color-primary-900) truncate leading-tight">
                           {getCitaText(cita)}
                         </div>
-                        <div className="text-xs text-(--color-primary-700) opacity-80 mt-1">
-                          {formatTime(cita.hora_inicio)} - {formatTime(cita.hora_fin)}
+                        <div className="text-xs text-(--color-primary-800) opacity-90 mt-1 flex items-center gap-1.5">
+                          <span>{formatTime(cita.hora_inicio)} - {formatTime(cita.hora_fin)}</span>
+                          {cita.serie_id && (
+                            <svg className="w-3.5 h-3.5 text-(--color-primary-800) shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                            </svg>
+                          )}
                         </div>
                       </button>
                     ) : (
@@ -150,7 +150,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                         className={`flex-1 rounded-r-lg border border-dashed border-(--color-border) flex items-center justify-center transition-colors ${
                           isPast 
                             ? 'bg-(--color-surface-hover) opacity-50 cursor-not-allowed' 
-                            : 'hover:bg-(--color-primary-50) hover:border-(--color-primary-300) hover:text-(--color-primary-600) text-transparent cursor-pointer group'
+                            : 'hover:bg-(--color-accent-50) hover:border-(--color-accent-300) hover:text-(--color-primary-700) text-transparent cursor-pointer group'
                         }`}
                       >
                         {!isPast && <span className="text-xl group-hover:opacity-100 opacity-0 transition-opacity">+</span>}
@@ -173,11 +173,13 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
               {dias.map(d => {
                 const isHoy = d.fecha === hoy;
                 return (
-                  <div key={d.fecha} className="sticky top-0 z-20 bg-(--color-surface) pb-2 border-b border-(--color-border) text-center flex flex-col items-center justify-end">
+                  <div key={d.fecha} className={`sticky top-0 z-20 pb-2 border-b border-(--color-border) text-center flex flex-col items-center justify-end rounded-t ${
+                    isHoy ? 'bg-(--color-secondary-50)/50' : 'bg-(--color-surface)'
+                  }`}>
                     <span className="font-semibold text-sm text-(--color-text-main)">{d.letra}</span>
                     <span className={`text-sm mt-0.5 px-2 py-0.5 rounded-full ${
                       isHoy 
-                        ? 'bg-(--color-primary-500) text-white font-bold ring-2 ring-(--color-primary-300) ring-offset-1 ring-offset-(--color-surface)' 
+                        ? 'bg-(--color-secondary-400) text-(--color-primary-900) font-bold ring-2 ring-(--color-secondary-200) ring-offset-1 ring-offset-(--color-surface)' 
                         : 'text-(--color-text-muted)'
                     }`}>
                       {d.fecha.split('-')[2]}
@@ -195,6 +197,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                   {dias.map(d => {
                     const cita = getCita(d.fecha, hora);
                     const isPast = d.fecha < hoy;
+                    const isHoy = d.fecha === hoy;
 
                     if (cita) {
                       return (
@@ -202,13 +205,18 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                           key={`${d.fecha}-${hora}`}
                           onClick={() => onClickCita(cita)}
                           title={`${formatTime(cita.hora_inicio)} - ${formatTime(cita.hora_fin)} | ${getCitaText(cita)}`}
-                          className="h-[2.75rem] bg-linear-to-br from-(--color-primary-100) to-(--color-primary-200) border-l-[3px] border-(--color-primary-500) rounded shadow-sm px-2 py-1 text-left hover:-translate-y-[1px] hover:shadow-md transition-all flex flex-col justify-center overflow-hidden"
+                          className="h-[2.75rem] bg-linear-to-br from-(--color-accent-100) to-(--color-secondary-100) border-l-[3px] border-(--color-accent-500) rounded shadow-xs px-2 py-1 text-left hover:-translate-y-[1px] hover:shadow-md transition-all flex flex-col justify-center overflow-hidden cursor-pointer"
                         >
-                          <span className="font-semibold text-sm text-(--color-primary-800) truncate">
+                          <span className="font-semibold text-sm text-(--color-primary-900) truncate">
                             {getCitaText(cita)}
                           </span>
-                          <span className="hidden lg:block text-[0.65rem] text-(--color-primary-700) truncate leading-none">
-                            {formatTime(cita.hora_inicio)} - {formatTime(cita.hora_fin)}
+                          <span className="hidden lg:flex items-center gap-1 text-[0.65rem] text-(--color-primary-800) truncate leading-none">
+                            <span>{formatTime(cita.hora_inicio)} - {formatTime(cita.hora_fin)}</span>
+                            {cita.serie_id && (
+                              <svg className="w-3 h-3 text-(--color-primary-800) shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                              </svg>
+                            )}
                           </span>
                         </button>
                       );
@@ -220,9 +228,11 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                         disabled={isPast}
                         onClick={() => onClickCasillaVacia(d.fecha, hora)}
                         className={`h-[2.75rem] border border-dashed border-(--color-border) rounded transition-colors flex items-center justify-center ${
+                          isHoy ? 'bg-(--color-secondary-50)/50 ' : ''
+                        }${
                           isPast 
                             ? 'bg-(--color-surface-hover) opacity-50 cursor-not-allowed' 
-                            : 'hover:bg-(--color-primary-50) hover:border-(--color-primary-300) hover:text-(--color-primary-600) text-transparent cursor-pointer empty-cell'
+                            : 'hover:bg-(--color-accent-50) hover:border-(--color-accent-300) hover:text-(--color-primary-700) text-transparent cursor-pointer empty-cell'
                         }`}
                       >
                         {!isPast && <span className="text-lg opacity-0 hover:opacity-100 transition-opacity">+</span>}

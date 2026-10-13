@@ -6,6 +6,7 @@ import { Input } from '../../components/Input';
 import { Spinner } from '../../components/Spinner';
 import { DateInput } from '../../components/DateInput';
 import { validarCedulaEcuatoriana } from '../../utils/cedula';
+import { getLocalTodayDate } from '../../utils/fechas';
 
 export function PacienteForm() {
   const { id } = useParams();
@@ -148,6 +149,7 @@ export function PacienteForm() {
               name="fecha_nacimiento"
               value={formData.fecha_nacimiento}
               onChange={handleChange}
+              max={getLocalTodayDate()}
               required
               helperText="Toca el calendario para elegir"
             />

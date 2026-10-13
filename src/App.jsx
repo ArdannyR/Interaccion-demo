@@ -18,6 +18,7 @@ import { TerapeutasList } from './features/terapeutas/TerapeutasList';
 import { TerapeutaDetail } from './features/terapeutas/TerapeutaDetail';
 import { HorariosView } from './features/horarios/HorariosView';
 import { PerfilView } from './features/perfil/PerfilView';
+import { PagosView } from './features/pagos/PagosView';
 import { AjustesView } from './features/settings/AjustesView';
 
 // Vistas Terapeuta
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/terapeutas/:id" element={<TerapeutaDetail />} />
                 <Route path="/horarios" element={<HorariosView />} />
                 <Route path="/perfil" element={<PerfilView />} />
+                <Route path="/pagos" element={<PagosView />} />
                 <Route path="/ajustes" element={<AjustesView />} />
                 <Route path="*" element={<Navigate to="/pacientes" replace />} />
               </Route>

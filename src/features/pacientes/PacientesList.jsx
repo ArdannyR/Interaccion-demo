@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { pacientesService } from './pacientesService';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
+import { PageHeader } from '../../components/PageHeader';
 import { PacienteCard } from './PacienteCard';
 
 export function PacientesList() {
@@ -34,12 +35,14 @@ export function PacientesList() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <h1 className="text-3xl md:text-4xl font-bold text-(--color-text-main)">Pacientes</h1>
-        <Link to="/pacientes/nuevo">
-          <Button className="text-lg py-3 px-6">+ Añadir paciente</Button>
-        </Link>
-      </div>
+      <PageHeader
+        title="Pacientes"
+        actions={
+          <Link to="/pacientes/nuevo">
+            <Button variant="accent" className="text-lg py-3 px-6">+ Añadir paciente</Button>
+          </Link>
+        }
+      />
 
       <div className="bg-(--color-surface) p-4 rounded-xl border border-(--color-border) shadow-sm">
         <Input 
