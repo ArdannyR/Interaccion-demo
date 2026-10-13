@@ -121,7 +121,7 @@ export function PlanForm() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-20">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl md:text-4xl font-bold text-(--color-text-main)">
+        <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main)">
           {isEditing ? 'Editar Plan de Tratamiento' : 'Nuevo Plan de Tratamiento'}
         </h1>
         <Button variant="outline" onClick={() => navigate('/pacientes')}>
@@ -148,7 +148,7 @@ export function PlanForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-(--color-surface) p-6 md:p-8 rounded-xl shadow-sm border border-(--color-border) space-y-8">
+      <form onSubmit={handleSubmit} className="bg-(--color-surface) p-5 md:p-6 rounded-xl shadow-sm border border-(--color-border) space-y-6">
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Input
@@ -157,7 +157,7 @@ export function PlanForm() {
             value={formData.diagnostico}
             onChange={handleChange}
             required
-            className="text-lg md:col-span-2"
+            className="md:col-span-2"
           />
           <DateInput
             label="Fecha *"
@@ -189,7 +189,7 @@ export function PlanForm() {
         </div>
 
         <div className="pt-6">
-          <Button type="submit" disabled={saving} className="w-full text-xl py-4">
+          <Button type="submit" disabled={saving} className="w-full text-lg py-3">
             {saving ? <Spinner size="sm" color="text-white" /> : 'Guardar Plan'}
           </Button>
         </div>

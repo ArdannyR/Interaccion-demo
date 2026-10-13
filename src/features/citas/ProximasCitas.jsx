@@ -18,7 +18,7 @@ export function ProximasCitas({ citas = [], modo = 'completo', onClickCita }) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="p-4 bg-(--color-surface-hover) border-b border-(--color-border)">
+      <div className="p-3 bg-(--color-surface-hover) border-b border-(--color-border)">
         <h3 className="font-bold text-(--color-text-main)">Próximas Citas</h3>
       </div>
       <div className="divide-y divide-(--color-border)">
@@ -33,7 +33,7 @@ export function ProximasCitas({ citas = [], modo = 'completo', onClickCita }) {
             <button 
               key={cita.id} 
               onClick={() => onClickCita && onClickCita(cita)}
-              className="w-full p-4 flex justify-between items-center text-left hover:bg-(--color-primary-50) transition-colors group"
+              className="w-full p-3 flex justify-between items-center text-left hover:bg-(--color-primary-50) transition-colors group cursor-pointer"
             >
               <div>
                 <p className="font-semibold text-(--color-text-main) group-hover:text-(--color-primary-700)">{textoPrincipal}</p>

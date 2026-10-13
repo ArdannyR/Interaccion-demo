@@ -88,6 +88,12 @@
   }
 }
 
+:root[data-text-size="pequeno"] {
+  font-size: 87.5%;
+}
+:root[data-text-size="mediano"] {
+  font-size: 93.75%;
+}
 :root[data-text-size="normal"] {
   font-size: 100%;
 }

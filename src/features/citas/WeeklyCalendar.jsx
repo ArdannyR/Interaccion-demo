@@ -55,11 +55,11 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
   return (
     <div className="space-y-4 animate-fade-up">
       {/* Barra de controles compacta */}
-      <div className="flex justify-between items-center bg-(--color-surface) p-3 rounded-xl border border-(--color-border) shadow-sm gap-2">
+      <div className="flex justify-between items-center bg-(--color-surface) p-2.5 rounded-xl border border-(--color-border) shadow-sm gap-2">
         <button 
           onClick={() => onCambiarSemana(-7)}
           aria-label="Semana anterior"
-          className="p-2 text-(--color-text-muted) hover:text-(--color-primary-600) hover:bg-(--color-primary-50) rounded-lg transition-colors"
+          className="p-2 text-(--color-text-muted) hover:text-(--color-primary-600) hover:bg-(--color-primary-50) rounded-lg transition-colors cursor-pointer"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
         </button>
@@ -67,7 +67,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
           <span className="font-bold text-(--color-text-main) capitalize">{formatRango()}</span>
           <button 
             onClick={() => onCambiarSemana(0)}
-            className="text-sm font-medium text-(--color-primary-600) hover:underline"
+            className="text-sm font-medium text-(--color-primary-600) hover:underline cursor-pointer"
           >
             Hoy
           </button>
@@ -75,7 +75,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
         <button 
           onClick={() => onCambiarSemana(7)}
           aria-label="Semana siguiente"
-          className="p-2 text-(--color-text-muted) hover:text-(--color-primary-600) hover:bg-(--color-primary-50) rounded-lg transition-colors"
+          className="p-2 text-(--color-text-muted) hover:text-(--color-primary-600) hover:bg-(--color-primary-50) rounded-lg transition-colors cursor-pointer"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
         </button>
@@ -122,7 +122,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                 const isPast = diaSel.fecha < hoy;
 
                 return (
-                  <div key={hora} className="flex gap-2 items-stretch h-[3rem]">
+                  <div key={hora} className="flex gap-2 items-stretch h-[2.5rem]">
                     <div className="w-[3rem] shrink-0 text-right pr-2 text-sm text-(--color-text-muted) font-medium self-center">
                       {formatTime(hora)}
                     </div>
@@ -165,7 +165,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
 
         {/* VISTA ESCRITORIO */}
         {isDesktop && (
-          <div className="max-h-[calc(100dvh-13rem)] overflow-y-auto">
+          <div className="max-h-[calc(100dvh-11rem)] overflow-y-auto">
             <div className="grid grid-cols-[3rem_repeat(5,minmax(0,1fr))] gap-1 p-2">
               
               {/* Header sticky */}
@@ -191,7 +191,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
               {/* Grid content */}
               {horas.map(hora => (
                 <div key={hora} className="contents group">
-                  <div className="text-xs text-(--color-text-muted) font-medium text-right pr-1 pt-1 h-[2.75rem]">
+                  <div className="text-xs text-(--color-text-muted) font-medium text-right pr-1 pt-1 h-[2.25rem]">
                     {formatTime(hora)}
                   </div>
                   {dias.map(d => {
@@ -205,7 +205,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                           key={`${d.fecha}-${hora}`}
                           onClick={() => onClickCita(cita)}
                           title={`${formatTime(cita.hora_inicio)} - ${formatTime(cita.hora_fin)} | ${getCitaText(cita)}`}
-                          className="h-[2.75rem] bg-linear-to-br from-(--color-accent-100) to-(--color-secondary-100) border-l-[3px] border-(--color-accent-500) rounded shadow-xs px-2 py-1 text-left hover:-translate-y-[1px] hover:shadow-md transition-all flex flex-col justify-center overflow-hidden cursor-pointer"
+                          className="h-[2.25rem] bg-linear-to-br from-(--color-accent-100) to-(--color-secondary-100) border-l-[3px] border-(--color-accent-500) rounded shadow-xs px-2 py-1 text-left hover:-translate-y-[1px] hover:shadow-md transition-all flex flex-col justify-center overflow-hidden cursor-pointer"
                         >
                           <span className="font-semibold text-sm text-(--color-primary-900) truncate">
                             {getCitaText(cita)}
@@ -227,7 +227,7 @@ export function WeeklyCalendar({ citas = [], semanaInicio, onCambiarSemana, onCl
                         key={`${d.fecha}-${hora}`} 
                         disabled={isPast}
                         onClick={() => onClickCasillaVacia(d.fecha, hora)}
-                        className={`h-[2.75rem] border border-dashed border-(--color-border) rounded transition-colors flex items-center justify-center ${
+                        className={`h-[2.25rem] border border-dashed border-(--color-border) rounded transition-colors flex items-center justify-center ${
                           isHoy ? 'bg-(--color-secondary-50)/50 ' : ''
                         }${
                           isPast 

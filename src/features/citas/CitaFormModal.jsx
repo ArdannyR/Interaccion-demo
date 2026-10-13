@@ -227,16 +227,16 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
         role="dialog" 
         aria-modal="true"
       >
-        <div className="flex justify-between items-center p-6 border-b border-(--color-border)">
-          <h2 className="text-2xl font-bold text-(--color-text-main)">
+        <div className="flex justify-between items-center p-5 border-b border-(--color-border)">
+          <h2 className="text-xl font-bold text-(--color-text-main)">
             {isEditing ? 'Editar Cita' : 'Nueva Cita'}
           </h2>
-          <button onClick={onClose} className="text-(--color-text-muted) hover:text-(--color-text-main) p-2">
+          <button onClick={onClose} className="text-(--color-text-muted) hover:text-(--color-text-main) p-2 cursor-pointer">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
 
-        <div className="overflow-y-auto p-6 flex-1 space-y-4">
+        <div className="overflow-y-auto p-5 flex-1 space-y-4">
           {error && (
             <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200)">
               {error}
@@ -264,7 +264,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
           {loadingOptions ? (
             <div className="flex justify-center p-8"><Spinner /></div>
           ) : (
-            <form id="cita-form" onSubmit={handleSubmit} className="space-y-5">
+            <form id="cita-form" onSubmit={handleSubmit} className="space-y-4">
               <Select
                 label="Paciente *"
                 name="paciente_id"
@@ -424,7 +424,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
           )}
         </div>
 
-        <div className="p-6 border-t border-(--color-border) flex justify-end gap-4 bg-(--color-surface-hover)">
+        <div className="p-5 border-t border-(--color-border) flex justify-end gap-4 bg-(--color-surface-hover)">
           <Button variant="outline" type="button" onClick={onClose} disabled={saving}>
             Cancelar
           </Button>

@@ -11,7 +11,9 @@ export function SettingsProvider({ children }) {
 
   const [textSize, setTextSize] = useState(() => {
     try {
-      return localStorage.getItem('appTextSize') || 'normal';
+      const saved = localStorage.getItem('appTextSize');
+      const valid = ['pequeno', 'mediano', 'normal', 'grande', 'muy-grande'];
+      return valid.includes(saved) ? saved : 'normal';
     } catch { return 'normal'; }
   });
 

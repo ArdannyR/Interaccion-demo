@@ -39,23 +39,23 @@ export function PacientesList() {
         title="Pacientes"
         actions={
           <Link to="/pacientes/nuevo">
-            <Button variant="accent" className="text-lg py-3 px-6">+ Añadir paciente</Button>
+            <Button variant="accent">+ Añadir paciente</Button>
           </Link>
         }
       />
 
-      <div className="bg-(--color-surface) p-4 rounded-xl border border-(--color-border) shadow-sm">
+      <div className="bg-(--color-surface) p-3 rounded-xl border border-(--color-border) shadow-sm">
         <Input 
           placeholder="Buscar por número de cédula o nombre completo..." 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="text-lg w-full"
+          className="w-full"
         />
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-6">
-          {[1,2,3,4,5,6].map(i => <div key={i} className="skeleton h-[18rem]" />)}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
+          {[1,2,3,4,5,6].map(i => <div key={i} className="skeleton h-[15rem]" />)}
         </div>
       ) : error ? (
         <div className="bg-(--color-danger-50) text-(--color-danger-700) p-6 rounded-xl border border-(--color-danger-200) text-center text-lg">
@@ -66,7 +66,7 @@ export function PacientesList() {
           No se encontraron pacientes.
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-6">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
           {pacientes.map((p) => (
             <PacienteCard key={p.id} paciente={p} />
           ))}

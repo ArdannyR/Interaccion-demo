@@ -43,14 +43,14 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita, onCancel
         role="dialog" 
         aria-modal="true"
       >
-        <div className="flex justify-between items-center p-6 border-b border-(--color-border)">
-          <h2 className="text-2xl font-bold text-(--color-text-main)">Detalle de Cita</h2>
-          <button onClick={onClose} className="text-(--color-text-muted) hover:text-(--color-text-main) p-2">
+        <div className="flex justify-between items-center p-5 border-b border-(--color-border)">
+          <h2 className="text-xl font-bold text-(--color-text-main)">Detalle de Cita</h2>
+          <button onClick={onClose} className="text-(--color-text-muted) hover:text-(--color-text-main) p-2 cursor-pointer">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-5 space-y-4">
           
           {/* Etiqueta de serie repetitiva si aplica */}
           {cita.serie_id && (
@@ -67,18 +67,18 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita, onCancel
 
           <div>
             <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Fecha y Hora</p>
-            <p className="text-lg text-(--color-text-main) font-medium capitalize mt-1">{fechaFormateada}</p>
-            <p className="text-xl font-bold text-(--color-primary-700)">{formatTime(cita.hora_inicio)} - {formatTime(cita.hora_fin)}</p>
+            <p className="text-base text-(--color-text-main) font-medium capitalize mt-1">{fechaFormateada}</p>
+            <p className="text-lg font-bold text-(--color-primary-700)">{formatTime(cita.hora_inicio)} - {formatTime(cita.hora_fin)}</p>
           </div>
 
           <div>
             <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Paciente</p>
-            <p className="text-xl text-(--color-text-main) font-medium mt-1">{cita.pacientes?.nombre_completo}</p>
+            <p className="text-lg text-(--color-text-main) font-medium mt-1">{cita.pacientes?.nombre_completo}</p>
           </div>
 
           <div>
             <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Profesional</p>
-            <p className="text-lg text-(--color-text-main) mt-1">{cita.perfiles?.nombres} {cita.perfiles?.apellidos}</p>
+            <p className="text-base text-(--color-text-main) mt-1">{cita.perfiles?.nombres} {cita.perfiles?.apellidos}</p>
           </div>
 
           {cita.notas && (
@@ -117,7 +117,7 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita, onCancel
                     </Button>
                     <button 
                       type="button" 
-                      className="text-xs text-(--color-text-muted) hover:text-(--color-text-main) mt-1 underline"
+                      className="text-xs text-(--color-text-muted) hover:text-(--color-text-main) mt-1 underline cursor-pointer"
                       onClick={() => setShowConfirm(false)}
                       disabled={canceling}
                     >
@@ -149,7 +149,7 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita, onCancel
         </div>
 
         {!showConfirm && (
-          <div className="p-6 border-t border-(--color-border) flex justify-between bg-(--color-surface-hover) rounded-b-2xl">
+          <div className="p-5 border-t border-(--color-border) flex justify-between bg-(--color-surface-hover) rounded-b-2xl">
             <button 
               onClick={() => setShowConfirm(true)}
               className="text-(--color-danger-600) font-semibold px-4 py-2 hover:bg-(--color-danger-50) rounded-lg transition-colors cursor-pointer"

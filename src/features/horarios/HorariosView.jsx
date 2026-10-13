@@ -222,7 +222,7 @@ export function HorariosView() {
             <Button 
               variant="accent"
               onClick={handleNuevaCita} 
-              className="text-lg py-3 px-6 whitespace-nowrap"
+              className="whitespace-nowrap"
             >
               + Nueva cita
             </Button>

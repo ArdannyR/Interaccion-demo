@@ -106,17 +106,17 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
           setIsOpen(!isOpen);
           setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
         }}
-        className="w-full md:w-auto flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border-2 border-(--color-primary-400) bg-(--color-surface) hover:bg-(--color-surface-hover) transition-all focus:outline-none focus:ring-4 focus:ring-(--color-primary-100)"
+        className="w-full md:w-auto flex items-center justify-between gap-3 px-4 py-2 rounded-xl border-2 border-(--color-primary-400) bg-(--color-surface) hover:bg-(--color-surface-hover) transition-all focus:outline-none focus:ring-4 focus:ring-(--color-primary-100) cursor-pointer"
       >
         <div className="flex items-center gap-3 text-left min-w-0">
-          <div className="w-10 h-10 rounded-full bg-(--color-primary-100) text-(--color-primary-800) font-bold flex items-center justify-center shrink-0 border border-(--color-primary-200)">
+          <div className="w-9 h-9 rounded-full bg-(--color-primary-100) text-(--color-primary-800) font-bold text-sm flex items-center justify-center shrink-0 border border-(--color-primary-200)">
             {getInitials(currentProf)}
           </div>
           <div className="flex flex-col min-w-0">
             <span className="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Ver horario de:
             </span>
-            <span className="text-base font-bold text-(--color-text-main) truncate">
+            <span className="text-sm font-bold text-(--color-text-main) truncate">
               {currentProf?.esPropio 
                 ? `Mi horario (${currentProf.nombres} ${currentProf.apellidos})`
                 : `${currentProf?.nombres || ''} ${currentProf?.apellidos || ''}`}
@@ -140,7 +140,7 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
           role="listbox"
           tabIndex={-1}
           aria-activedescendant={focusedIndex >= 0 ? `prof-opt-${profesionales[focusedIndex]?.id}` : undefined}
-          className="absolute left-0 right-0 md:right-auto md:w-80 top-full mt-2 z-30 bg-(--color-surface) rounded-xl shadow-xl border border-(--color-border) py-2 max-h-80 overflow-y-auto animate-scale-in"
+          className="absolute left-0 right-0 md:right-auto md:w-80 top-full mt-2 z-30 bg-(--color-surface) rounded-xl shadow-xl border border-(--color-border) py-1.5 max-h-80 overflow-y-auto animate-scale-in"
         >
           {profesionales.map((prof, index) => {
             const isSelected = prof.id === selectedId;
@@ -154,16 +154,16 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
                 aria-selected={isSelected}
                 onClick={() => handleSelectOption(prof.id)}
                 onMouseEnter={() => setFocusedIndex(index)}
-                className={`min-h-[3rem] px-4 py-2.5 flex items-center justify-between gap-3 cursor-pointer transition-colors ${
+                className={`min-h-[2.75rem] px-3.5 py-2 flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                   isSelected ? 'bg-(--color-primary-50)' : isFocused ? 'bg-(--color-surface-hover)' : ''
                 }`}
               >
-                <div className="flex items-center gap-3 min-w-0">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-8 h-8 rounded-full bg-(--color-primary-100) text-(--color-primary-800) font-bold text-xs flex items-center justify-center shrink-0">
                     {getInitials(prof)}
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className={`text-base truncate ${isSelected ? 'font-bold text-(--color-primary-800)' : 'font-medium text-(--color-text-main)'}`}>
+                    <span className={`text-sm truncate ${isSelected ? 'font-bold text-(--color-primary-800)' : 'font-medium text-(--color-text-main)'}`}>
                       {getDisplayName(prof)}
                     </span>
                     {!prof.esPropio && prof.especialidad && (

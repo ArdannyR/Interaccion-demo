@@ -2,9 +2,9 @@ export function PageHeader({ title, subtitle, actions, children, className = '' 
   const actionContent = actions || children;
 
   return (
-    <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 ${className}`}>
+    <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-1 ${className}`}>
       <div className="space-y-1.5">
-        <h1 className="text-3xl md:text-4xl font-bold text-(--color-text-main) tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main) tracking-tight">
           {title}
         </h1>
         <div 
@@ -12,7 +12,7 @@ export function PageHeader({ title, subtitle, actions, children, className = '' 
           aria-hidden="true"
         />
         {subtitle && (
-          <p className="text-sm md:text-base text-(--color-text-muted) pt-0.5">
+          <p className="text-sm text-(--color-text-muted) pt-0.5">
             {subtitle}
           </p>
         )}

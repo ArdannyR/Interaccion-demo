@@ -101,18 +101,18 @@ export function TerapeutaDetail() {
   const iniciales = `${terapeuta.nombres.charAt(0)}${terapeuta.apellidos.charAt(0)}`.toUpperCase();
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 pb-20">
+    <div className="max-w-5xl mx-auto space-y-6 pb-20">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-center gap-6 bg-(--color-surface) p-8 rounded-2xl border border-(--color-border) shadow-sm">
-        <div className="w-24 h-24 rounded-full bg-(--color-primary-100) flex items-center justify-center text-3xl font-bold text-(--color-primary-800)">
+      <div className="flex flex-col md:flex-row items-center gap-6 bg-(--color-surface) p-6 rounded-2xl border border-(--color-border) shadow-sm">
+        <div className="w-20 h-20 rounded-full bg-(--color-primary-100) flex items-center justify-center text-2xl font-bold text-(--color-primary-800)">
           {iniciales}
         </div>
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl font-bold text-(--color-text-main)">
+          <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main)">
             {terapeuta.nombres} {terapeuta.apellidos}
           </h1>
-          <p className="text-xl text-(--color-text-muted) mt-2">{terapeuta.especialidad || 'Terapeuta General'}</p>
+          <p className="text-lg text-(--color-text-muted) mt-2">{terapeuta.especialidad || 'Terapeuta General'}</p>
           <Link to="/terapeutas" className="text-(--color-primary-600) hover:underline mt-4 inline-block font-medium">
             &larr; Volver al directorio
           </Link>
@@ -131,11 +131,11 @@ export function TerapeutaDetail() {
         </div>
 
         {/* Tab content principal (Citas Calendario) */}
-        <div className="md:col-span-2 space-y-8">
+        <div className="md:col-span-2 space-y-6">
           
           <section className="space-y-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-(--color-primary-700)">Calendario de {terapeuta.nombres}</h2>
+              <h2 className="text-xl font-semibold text-(--color-primary-700)">Calendario de {terapeuta.nombres}</h2>
               <Button onClick={() => {
                 setFormInitialData({ profesional_id: id });
                 setModalFormOpen(true);

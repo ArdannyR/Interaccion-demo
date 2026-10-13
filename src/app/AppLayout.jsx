@@ -70,7 +70,7 @@ export function AppLayout() {
   const iniciales = perfil ? `${perfil.nombres?.charAt(0) || ''}${perfil.apellidos?.charAt(0) || ''}`.toUpperCase() : '??';
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-transparent relative overflow-x-hidden">
+    <div className="min-h-screen flex flex-col md:flex-row bg-transparent relative overflow-x-clip">
       {/* Fondo con manchas decorativas fijas detrás del contenido */}
       <div 
         className="fixed top-0 right-0 w-96 h-96 rounded-full bg-(--color-accent-300)/15 blur-3xl pointer-events-none -z-10" 
@@ -107,20 +107,20 @@ export function AppLayout() {
 
       {/* Barra lateral */}
       <aside 
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-linear-to-b from-(--color-primary-700) to-(--color-primary-900) text-white shadow-2xl transition-transform duration-300 ease-in-out md:static md:w-64 md:translate-x-0 md:sticky md:top-0 md:h-screen md:flex md:flex-col relative overflow-hidden ${
+        className={`fixed inset-y-0 left-0 z-50 h-dvh w-72 md:w-64 bg-linear-to-b from-(--color-primary-700) to-(--color-primary-900) text-white shadow-2xl transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col ${
           menuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Dos manchas difuminadas decorativas en la barra lateral */}
-        <div 
-          className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full bg-(--color-accent-400)/20 blur-2xl pointer-events-none animate-float" 
-          aria-hidden="true" 
-        />
-        <div 
-          className="absolute top-1/2 -right-8 w-40 h-40 rounded-full bg-(--color-secondary-400)/15 blur-2xl pointer-events-none animate-float" 
-          style={{ animationDelay: '-8s' }} 
-          aria-hidden="true" 
-        />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div 
+            className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full bg-(--color-accent-400)/20 blur-2xl animate-float" 
+          />
+          <div 
+            className="absolute top-1/2 -right-8 w-40 h-40 rounded-full bg-(--color-secondary-400)/15 blur-2xl animate-float" 
+            style={{ animationDelay: '-8s' }} 
+          />
+        </div>
 
         {/* Marca: logotipo con degradado + I en primary-900 + línea de 3rem */}
         <div className="p-6 flex items-center justify-between border-b border-white/10 relative z-10">
@@ -146,7 +146,7 @@ export function AppLayout() {
         </div>
         
         {/* Navegación */}
-        <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto relative z-10">
+        <nav className="flex-1 min-h-0 px-3 py-4 space-y-1.5 overflow-y-auto relative z-10">
           <p className="text-[0.7rem] font-bold uppercase tracking-widest text-(--color-secondary-300) px-3 mb-2">
             MENÚ
           </p>
@@ -225,7 +225,7 @@ export function AppLayout() {
       </aside>
 
       {/* Contenido Principal */}
-      <main key={location.pathname} className="flex-1 p-4 md:p-8 animate-fade-up relative z-10">
+      <main key={location.pathname} className="flex-1 md:ml-64 min-w-0 p-3 md:p-5 animate-fade-up relative z-10">
         <Outlet />
       </main>
     </div>

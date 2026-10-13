@@ -61,8 +61,10 @@ Utilizados **exclusivamente** para estados de alerta y feedback del sistema. No 
 
 El proyecto utiliza la familia tipográfica por defecto `font-sans` configurada en Tailwind.
 
-**Escalado de Texto (Accesibilidad):**
-El proyecto soporta el escalado dinámico del tamaño del texto a través del atributo global `data-text-size` en el `<html>`. Las unidades de medida en el código deben ser preferentemente `rem` o las propias clases predeterminadas de Tailwind (`text-sm`, `text-lg`, etc.), nunca tamaños estáticos en `px`.
+**Escalado de Texto y Tamaño de Interfaz (Accesibilidad):**
+El proyecto soporta el escalado dinámico del tamaño de la interfaz a través del atributo global `data-text-size` en el `<html>` (5 niveles). Las unidades de medida en el código deben ser preferentemente `rem` o las propias clases predeterminadas de Tailwind (`text-sm`, `text-lg`, etc.), nunca tamaños estáticos en `px`.
+- `data-text-size="pequeno"`: 87.5%
+- `data-text-size="mediano"`: 93.75%
 - `data-text-size="normal"`: 100%
 - `data-text-size="grande"`: 112.5%
 - `data-text-size="muy-grande"`: 125%
