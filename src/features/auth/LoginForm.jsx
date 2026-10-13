@@ -1,17 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from './authService';
+import { useAuth } from './AuthContext';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Card } from '../../components/Card';
 import { CLINIC_INFO } from '../landing/constants';
 
 export function LoginForm() {
+  const { session, perfil: authPerfil, updateAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Si ya hay sesión activa con perfil cargado, redirigir automáticamente
+  useEffect(() => {
+    if (session && authPerfil) {
+      if (authPerfil.rol === 'directora') {
+        navigate('/pacientes', { replace: true });
+      } else if (authPerfil.rol === 'terapeuta') {
+        navigate('/tu-espacio', { replace: true });
+      }
+    }
+  }, [session, authPerfil, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +40,18 @@ export function LoginForm() {
     try {
       const data = await authService.login(email, password);
       const perfil = await authService.getProfile(data.user.id);
+
+      // Sincronizar inmediatamente el contexto para evitar race condition con RoleRoute
+      if (updateAuth) {
+        updateAuth(data.session, perfil);
+      }
       
       if (perfil?.rol === 'directora') {
-        navigate('/pacientes');
+        navigate('/pacientes', { replace: true });
       } else if (perfil?.rol === 'terapeuta') {
-        navigate('/tu-espacio');
+        navigate('/tu-espacio', { replace: true });
       } else {
-        navigate('/');
+        navigate('/', { replace: true });
       }
     } catch (err) {
       console.error(err);
