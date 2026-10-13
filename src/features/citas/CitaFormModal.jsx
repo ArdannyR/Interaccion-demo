@@ -148,7 +148,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
 
         <div className="overflow-y-auto p-6 flex-1">
           {error && (
-            <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 mb-6">
+            <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200) mb-6">
               {error}
             </div>
           )}

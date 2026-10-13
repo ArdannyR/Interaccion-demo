@@ -20,7 +20,11 @@ La aplicación para la directora sigue un diseño tipo Moodle (Barra lateral a l
 - `/terapeutas/:id` (Vista de detalles de un terapeuta y su calendario de citas)
 - `/horarios` (Vista del calendario personal y gestión de citas)
 - `/perfil` (Datos de la cuenta iniciada)
-- `/ajustes` (Configuración de tonos y tamaño de texto)
+- `/ajustes` (Configuración de accesibilidad: tamaño de texto y animaciones reducidas)
+
+## Estilos y Diseño
+
+Consulta la [Guía de Estilos (docs/ESTILOS.md)](docs/ESTILOS.md) para conocer la paleta de colores, tokens, reglas de uso y convenciones de diseño de la interfaz.
 
 ## Requisitos previos
 

@@ -57,11 +57,11 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita }) {
           )}
 
           {showConfirm && (
-            <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-center">
-              <p className="text-red-800 font-semibold mb-3">¿Seguro que desea cancelar esta cita?</p>
+            <div className="bg-(--color-danger-50) p-4 rounded-xl border border-(--color-danger-200) text-center">
+              <p className="text-(--color-danger-800) font-semibold mb-3">¿Seguro que desea cancelar esta cita?</p>
               <div className="flex justify-center gap-4">
-                <Button variant="outline" className="border-red-300 text-red-700 hover:bg-red-100" onClick={() => setShowConfirm(false)} disabled={canceling}>No, volver</Button>
-                <Button className="bg-red-600 hover:bg-red-700 text-white" onClick={handleCancel} disabled={canceling}>
+                <Button variant="outline" className="border-(--color-danger-300) text-(--color-danger-700) hover:bg-(--color-danger-100)" onClick={() => setShowConfirm(false)} disabled={canceling}>No, volver</Button>
+                <Button variant="danger" onClick={handleCancel} disabled={canceling}>
                   {canceling ? <Spinner size="sm" /> : 'Sí, cancelar'}
                 </Button>
               </div>
@@ -74,7 +74,7 @@ export function CitaDetalleModal({ cita, onClose, onEdit, onCancelCita }) {
           <div className="p-6 border-t border-(--color-border) flex justify-between bg-(--color-surface-hover) rounded-b-2xl">
             <button 
               onClick={() => setShowConfirm(true)}
-              className="text-red-600 font-semibold px-4 py-2 hover:bg-red-50 rounded-lg transition-colors"
+              className="text-(--color-danger-600) font-semibold px-4 py-2 hover:bg-(--color-danger-50) rounded-lg transition-colors"
             >
               Cancelar cita
             </button>

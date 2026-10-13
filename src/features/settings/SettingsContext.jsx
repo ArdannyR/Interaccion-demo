@@ -3,11 +3,11 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const SettingsContext = createContext({});
 
 export function SettingsProvider({ children }) {
-  const [tone, setTone] = useState(() => {
-    try {
-      return localStorage.getItem('appTone') || 'verde';
-    } catch { return 'verde'; }
-  });
+  // Cleanup old tone setting if it exists
+  useEffect(() => {
+    localStorage.removeItem('appTone');
+    document.documentElement.removeAttribute('data-tone');
+  }, []);
 
   const [textSize, setTextSize] = useState(() => {
     try {
@@ -20,13 +20,6 @@ export function SettingsProvider({ children }) {
       return localStorage.getItem('appMotion') || 'activadas';
     } catch { return 'activadas'; }
   });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('appTone', tone);
-      document.documentElement.setAttribute('data-tone', tone);
-    } catch (err) { console.error('Error saving tone', err); }
-  }, [tone]);
 
   useEffect(() => {
     try {
@@ -43,7 +36,7 @@ export function SettingsProvider({ children }) {
   }, [motion]);
 
   return (
-    <SettingsContext.Provider value={{ tone, setTone, textSize, setTextSize, motion, setMotion }}>
+    <SettingsContext.Provider value={{ textSize, setTextSize, motion, setMotion }}>
       {children}
     </SettingsContext.Provider>
   );

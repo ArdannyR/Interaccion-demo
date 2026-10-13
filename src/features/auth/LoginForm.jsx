@@ -92,7 +92,7 @@ export function LoginForm() {
             />
 
             {error && (
-              <div className="p-4 bg-red-50/90 backdrop-blur-sm text-red-700 rounded-xl text-lg border border-red-200 animate-fade-up">
+              <div className="p-4 bg-(--color-danger-50)/90 backdrop-blur-sm text-(--color-danger-700) rounded-xl text-lg border border-(--color-danger-200) animate-fade-up">
                 {error}
               </div>
             )}

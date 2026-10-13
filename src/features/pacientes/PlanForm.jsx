@@ -142,7 +142,7 @@ export function PlanForm() {
       )}
 
       {error && (
-        <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200">
+        <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200)">
           {error}
         </div>
       )}

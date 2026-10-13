@@ -111,7 +111,7 @@ export function PacienteDetail() {
   };
 
   if (loading) return <div className="flex justify-center p-12"><Spinner /></div>;
-  if (error) return <div className="text-red-600 text-center p-12 text-lg">{error}</div>;
+  if (error) return <div className="text-(--color-danger-600) text-center p-12 text-lg">{error}</div>;
   if (!paciente) return <div className="text-center p-12 text-lg">Paciente no encontrado</div>;
 
   return (
@@ -253,7 +253,7 @@ export function PacienteDetail() {
                     
                     {plan.objetivos_alcanzados && (
                       <div>
-                        <p className="text-sm font-semibold uppercase text-green-700 tracking-wider mb-1">Objetivos Alcanzados</p>
+                        <p className="text-sm font-semibold uppercase text-(--color-success-700) tracking-wider mb-1">Objetivos Alcanzados</p>
                         <p className="text-(--color-text-main) whitespace-pre-wrap">{plan.objetivos_alcanzados}</p>
                       </div>
                     )}

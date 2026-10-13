@@ -35,7 +35,7 @@ export function TerapeutasList() {
           {[1,2,3,4,5,6].map(i => <div key={i} className="skeleton h-[16rem]" />)}
         </div>
       ) : error ? (
-        <div className="bg-red-50 text-red-700 p-6 rounded-xl border border-red-200 text-center text-lg">
+        <div className="bg-(--color-danger-50) text-(--color-danger-700) p-6 rounded-xl border border-(--color-danger-200) text-center text-lg">
           {error}
         </div>
       ) : terapeutas.length === 0 ? (

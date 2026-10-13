@@ -89,7 +89,7 @@ export function TerapeutaDetail() {
   };
 
   if (loading) return <div className="flex justify-center p-12"><Spinner /></div>;
-  if (error) return <div className="text-red-600 text-center p-12 text-lg">{error}</div>;
+  if (error) return <div className="text-(--color-danger-600) text-center p-12 text-lg">{error}</div>;
   if (!terapeuta) return <div className="text-center p-12 text-lg">Terapeuta no encontrado</div>;
 
   const iniciales = `${terapeuta.nombres.charAt(0)}${terapeuta.apellidos.charAt(0)}`.toUpperCase();
