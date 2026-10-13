@@ -17,7 +17,7 @@ export function AjustesView() {
     <div className="max-w-2xl mx-auto space-y-6 pb-20 animate-fade-up">
       <PageHeader title="Ajustes" />
       
-      <Card className="p-5 md:p-6">
+      <Card className="p-4 sm:p-5 md:p-6">
         <h2 className="text-xl font-semibold mb-6 text-(--color-primary-700)">Accesibilidad</h2>
         
         <div className="space-y-6">
@@ -34,7 +34,7 @@ export function AjustesView() {
                   key={size.id}
                   onClick={() => setTextSize(size.id)}
                   aria-pressed={textSize === size.id}
-                  className={`p-3 rounded-xl border-2 transition-all text-center cursor-pointer ${
+                  className={`min-h-11 p-3 rounded-xl border-2 transition-all text-center cursor-pointer active:scale-[0.97] ${
                     textSize === size.id 
                       ? 'border-(--color-accent-400) bg-(--color-accent-50)' 
                       : 'border-(--color-border) hover:border-(--color-accent-300)'
@@ -56,7 +56,7 @@ export function AjustesView() {
               <button
                 onClick={() => setMotion('activadas')}
                 aria-pressed={motion === 'activadas'}
-                className={`p-3 rounded-xl border-2 transition-all text-center cursor-pointer ${
+                className={`min-h-11 p-3 rounded-xl border-2 transition-all text-center cursor-pointer active:scale-[0.97] ${
                   motion === 'activadas' 
                     ? 'border-(--color-accent-400) bg-(--color-accent-50)' 
                     : 'border-(--color-border) hover:border-(--color-accent-300)'

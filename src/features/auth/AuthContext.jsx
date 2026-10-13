@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{ session, perfil, loading }}>
       {!loading ? children : (
-        <div className="min-h-screen flex items-center justify-center bg-(--color-background)">
+        <div className="min-h-dvh flex items-center justify-center bg-(--color-background)">
           <div className="text-xl text-(--color-text-muted) font-medium">Cargando tu cuenta...</div>
         </div>
       )}

@@ -161,3 +161,35 @@ Cada vista principal usa el componente `PageHeader` que incluye:
 ### Perfil
 - Banda decorativa superior con gradiente `accent-100 → secondary-100 → accent-50`.
 - Avatar con fondo `accent-100`, ícono `accent-500`, anillo blanco (`ring-4 ring-(--color-surface)`).
+
+---
+
+## 7. Diseño Responsive y Móvil (Mobile-First)
+
+Toda la aplicación sigue un diseño **mobile-first** adaptado para visualización completa en pantallas de celulares y tablets sin scroll horizontal.
+
+### Breakpoints Oficiales
+- **Base (móvil)**: `< 640px` (estilos directos sin prefijo). Vistas validadas en **320, 360, 390, 412 px**.
+- **`sm:`**: `≥ 640px` (móviles grandes y phablets).
+- **`md:`**: `≥ 768px` (tablets en portrait y laptops pequeñas; activación de sidebar fija y grid semanal del calendario).
+- **`lg:`**: `≥ 1024px` (escritorio y pantallas amplias).
+
+### Tamaños Táctiles y Accesibilidad Móvil
+- **Objetivo táctil mínimo:** Todo botón, enlace de acción, ítem de menú, opción de listbox y celda interactiva tiene un alto/ancho mínimo de **44 px (`min-h-11` o `w-11 h-11`)** en pantallas `< 768px`.
+- **Separación entre interactivos:** Mínimo `0.5rem` (`gap-2` o superior) entre botones adyacentes para evitar toques accidentales.
+- **Inputs móviles:** En pantallas menores a 768px, todos los elementos `input`, `select` y `textarea` tienen un tamaño de fuente mínimo de `max(1rem, 16px)` para evitar que iOS Mobile Safari fuerce zoom automático en el foco.
+- **Áreas seguras (Notch & Gestos):** Uso sistemático de utilidades de safe area (`pt-safe`, `pb-safe`, `pl-safe`, `pr-safe`) en cabeceras móviles sticky, pie de modales, drawer lateral y footer.
+
+### Regla de Independencia de Hover
+- **Nunca depender de `:hover` para información o acciones críticas:** En pantallas táctiles, el estado `:hover` no existe de forma predecible.
+- Los efectos interactivos de traslación (`hover:-translate-y-1`) y sombras deben condicionarse con `[@media(hover:hover)]:hover:...` para evitar saltos o parpadeos táctiles indeseados.
+- Elementos como el botón "+" de casillas vacías en el calendario se muestran permanentes y discretos en dispositivos táctiles mediante `[@media(hover:none)]:opacity-60`.
+
+### Patrón de Modal como Hoja Inferior (Bottom Sheet)
+En pantallas de celular (`< 640px`), los modales se abren como una hoja inferior:
+- **Contenedor:** `fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 sm:p-4`.
+- **Caja del modal:** `w-full max-h-[92dvh] rounded-t-2xl sm:rounded-2xl rounded-b-none sm:rounded-b-2xl` con animación `animate-slide-up` en móvil y `animate-scale-in` en escritorio.
+- **Cabecera fija:** Título con `truncate` + botón cerrar táctil `w-11 h-11`.
+- **Cuerpo con scroll:** `overflow-y-auto overscroll-contain` con `scroll-padding-bottom` para no tapar campos con el teclado virtual.
+- **Bloqueo de scroll:** El `body` bloquea su scroll (`overflow = 'hidden'`) mientras un modal o el drawer móvil esté abierto.
+

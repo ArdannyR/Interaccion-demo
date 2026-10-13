@@ -38,8 +38,8 @@ export function PacientesList() {
       <PageHeader
         title="Pacientes"
         actions={
-          <Link to="/pacientes/nuevo">
-            <Button variant="accent">+ Añadir paciente</Button>
+          <Link to="/pacientes/nuevo" className="w-full sm:w-auto">
+            <Button variant="accent" className="w-full sm:w-auto">+ Añadir paciente</Button>
           </Link>
         }
       />
@@ -54,7 +54,7 @@ export function PacientesList() {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
           {[1,2,3,4,5,6].map(i => <div key={i} className="skeleton h-[15rem]" />)}
         </div>
       ) : error ? (
@@ -66,7 +66,7 @@ export function PacientesList() {
           No se encontraron pacientes.
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
           {pacientes.map((p) => (
             <PacienteCard key={p.id} paciente={p} />
           ))}

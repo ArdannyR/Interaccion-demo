@@ -119,6 +119,15 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  // Bloquear el scroll del fondo mientras el modal esté abierto
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   // Calcular fechas de la serie para vista previa en vivo
   const fechasSerie = esSerie ? calcularFechasSerie(formData.fecha, serieCantidad, serieUnidad) : [];
   const resumenSerie = esSerie ? formatearResumenSerie(fechasSerie) : '';
@@ -152,6 +161,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
     return () => {
       ignore = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [esSerie, formData.profesional_id, formData.fecha, serieCantidad, serieUnidad, fechasSerie.length]);
 
   // Detección de colisiones para las fechas calculadas
@@ -221,30 +231,40 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
   const diaNombre = getDiaSemanaNombre(formData.fecha);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+    <div 
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 sm:p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div 
-        className="bg-(--color-surface) rounded-2xl shadow-xl border border-(--color-border) w-full max-w-lg flex flex-col max-h-[90vh]"
+        className="bg-(--color-surface) rounded-t-2xl sm:rounded-2xl rounded-b-none sm:rounded-b-2xl shadow-xl border border-(--color-border) w-full max-w-lg flex flex-col max-h-[92dvh] animate-slide-up sm:animate-scale-in"
         role="dialog" 
         aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center p-5 border-b border-(--color-border)">
-          <h2 className="text-xl font-bold text-(--color-text-main)">
+        <div className="flex justify-between items-center p-4 sm:p-5 border-b border-(--color-border) shrink-0">
+          <h2 className="text-xl font-bold text-(--color-text-main) truncate">
             {isEditing ? 'Editar Cita' : 'Nueva Cita'}
           </h2>
-          <button onClick={onClose} className="text-(--color-text-muted) hover:text-(--color-text-main) p-2 cursor-pointer">
+          <button 
+            onClick={onClose} 
+            aria-label="Cerrar modal"
+            className="w-11 h-11 min-w-11 min-h-11 flex items-center justify-center rounded-xl text-(--color-text-muted) hover:text-(--color-text-main) hover:bg-(--color-surface-hover) cursor-pointer transition-colors"
+          >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
 
-        <div className="overflow-y-auto p-5 flex-1 space-y-4">
+        <div className="overflow-y-auto overscroll-contain p-4 sm:p-5 flex-1 space-y-4 scroll-pb-8">
           {error && (
-            <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200)">
+            <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200) break-words">
               {error}
             </div>
           )}
 
           {conflictosSubmit && (
-            <div className="bg-(--color-danger-50) text-(--color-danger-800) p-4 rounded-xl border border-(--color-danger-200) space-y-2 text-sm animate-fade-up">
+            <div className="bg-(--color-danger-50) text-(--color-danger-800) p-4 rounded-xl border border-(--color-danger-200) space-y-2 text-sm animate-fade-up break-words">
               <p className="font-bold">No se creó ninguna cita porque estas fechas están ocupadas:</p>
               {conflictosSubmit.profesional?.length > 0 && (
                 <p>
@@ -326,7 +346,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
               )}
 
               {/* Campos de fecha y hora */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-4">
                 <DateInput
                   label={esSerie ? `Primera cita (${diaNombre || 'día'}) *` : 'Fecha *'}
                   name="fecha"
@@ -352,7 +372,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
               {/* Controles de serie (Durante N semanas / meses) */}
               {esSerie && (
                 <div className="p-4 rounded-xl border border-(--color-secondary-200) bg-(--color-secondary-50)/40 space-y-4 animate-scale-in">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-4">
                     <Input
                       label="Durante *"
                       type="number"
@@ -394,7 +414,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
                       </svg>
                       <span>Vista previa de la serie</span>
                     </div>
-                    <p className="text-sm font-semibold text-(--color-text-main)">
+                    <p className="text-sm font-semibold text-(--color-text-main) break-words">
                       {resumenSerie}
                     </p>
 
@@ -402,7 +422,7 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
                     {fechasConConflicto.length > 0 && (
                       <div className="pt-2 border-t border-(--color-danger-200) space-y-1">
                         {fechasConConflicto.map(fc => (
-                          <div key={fc} className="flex items-center gap-2 text-xs font-semibold text-(--color-danger-700) bg-(--color-danger-50) px-2.5 py-1 rounded-lg border border-(--color-danger-200)">
+                          <div key={fc} className="flex items-center gap-2 text-xs font-semibold text-(--color-danger-700) bg-(--color-danger-50) px-2.5 py-1 rounded-lg border border-(--color-danger-200) break-words">
                             <span>⚠️ {formatFechaCorta(fc, true)}: Esta fecha ya está ocupada</span>
                           </div>
                         ))}
@@ -424,11 +444,11 @@ export function CitaFormModal({ onClose, onSuccess, initialData = {}, lockPacien
           )}
         </div>
 
-        <div className="p-5 border-t border-(--color-border) flex justify-end gap-4 bg-(--color-surface-hover)">
-          <Button variant="outline" type="button" onClick={onClose} disabled={saving}>
+        <div className="p-4 sm:p-5 border-t border-(--color-border) flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-4 bg-(--color-surface-hover) rounded-b-none sm:rounded-b-2xl pb-safe shrink-0">
+          <Button variant="outline" type="button" onClick={onClose} disabled={saving} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button type="submit" form="cita-form" disabled={saving || loadingOptions}>
+          <Button type="submit" form="cita-form" disabled={saving || loadingOptions} className="w-full sm:w-auto">
             {saving ? <Spinner size="sm" /> : (esSerie ? 'Crear Serie de Citas' : 'Guardar Cita')}
           </Button>
         </div>

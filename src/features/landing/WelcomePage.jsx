@@ -17,20 +17,20 @@ function RevealBlock({ children, className = '' }) {
 
 export function WelcomePage() {
   return (
-    <div className="min-h-screen bg-transparent relative overflow-x-hidden flex flex-col">
+    <div className="min-h-dvh bg-transparent relative overflow-x-clip flex flex-col">
       {/* Background blobs decorativos */}
       <div className="fixed inset-0 bg-linear-to-br from-(--color-primary-50) via-(--color-background) to-(--color-secondary-50)/30 -z-30 pointer-events-none" />
-      <div className="fixed top-[-5%] left-[-5%] w-96 h-96 bg-(--color-accent-200)/20 rounded-full blur-3xl animate-float -z-20 pointer-events-none" />
-      <div className="fixed top-[30%] right-[-10%] w-[32rem] h-[32rem] bg-(--color-secondary-200)/20 rounded-full blur-3xl animate-float -z-20 pointer-events-none" style={{ animationDelay: '-7s' }} />
+      <div className="hidden sm:block fixed top-[-5%] left-[-5%] w-64 h-64 sm:w-96 sm:h-96 bg-(--color-accent-200)/20 rounded-full blur-3xl animate-float -z-20 pointer-events-none" />
+      <div className="hidden sm:block fixed top-[30%] right-[-10%] w-64 h-64 sm:w-[32rem] sm:h-[32rem] bg-(--color-secondary-200)/20 rounded-full blur-3xl animate-float -z-20 pointer-events-none" style={{ animationDelay: '-7s' }} />
 
       {/* 1. Header sticky: INTERACCIÓN a la izquierda, Ingresar a la derecha */}
-      <header className="bg-(--color-surface)/90 backdrop-blur-md border-b border-(--color-border) sticky top-0 z-50 shadow-xs">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-3.5 flex justify-between items-center">
-          <span className="text-2xl sm:text-3xl font-black tracking-tight text-(--color-primary-800)">
+      <header className="bg-(--color-surface)/90 backdrop-blur-md border-b border-(--color-border) sticky top-0 z-50 shadow-xs pt-safe">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-3.5 flex justify-between items-center gap-3">
+          <span className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-(--color-primary-800) truncate">
             {CLINIC_INFO.name}
           </span>
-          <Link to="/login">
-            <Button className="text-base sm:text-lg py-2 sm:py-2.5 px-5 sm:px-6">
+          <Link to="/login" className="shrink-0">
+            <Button className="text-base sm:text-lg py-2 sm:py-2.5 px-4 sm:px-6 min-h-11">
               Ingresar
             </Button>
           </Link>
@@ -46,21 +46,21 @@ export function WelcomePage() {
             
             {/* Columna Izquierda: Texto */}
             <div className="lg:col-span-7 text-left space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight bg-clip-text text-transparent bg-linear-to-r from-(--color-primary-800) to-(--color-primary-600) leading-tight pb-1">
+              <h1 className="text-3xl min-[360px]:text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight bg-clip-text text-transparent bg-linear-to-r from-(--color-primary-800) to-(--color-primary-600) leading-tight pb-1 break-words">
                 {CLINIC_INFO.name}
               </h1>
-              <p className="text-xl sm:text-2xl font-bold text-(--color-secondary-700) leading-snug">
+              <p className="text-lg min-[360px]:text-xl sm:text-2xl font-bold text-(--color-secondary-700) leading-snug break-words">
                 {CLINIC_INFO.tagline}
               </p>
-              <p className="text-base sm:text-lg text-(--color-text-muted) max-w-xl leading-relaxed">
+              <p className="text-base sm:text-lg text-(--color-text-muted) max-w-xl leading-relaxed break-words">
                 {CLINIC_INFO.heroSubtitle}
               </p>
 
-              {/* 3 datos en línea: teléfono, ciudad y horario */}
-              <div className="pt-4 border-t border-(--color-border) flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm sm:text-base">
+              {/* 3 datos: teléfono, ciudad y horario (en columna en móvil, fila desde sm) */}
+              <div className="pt-4 border-t border-(--color-border) flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-x-6 gap-y-2.5 text-sm sm:text-base">
                 <a
                   href={CLINIC_INFO.contact.phoneHref}
-                  className="inline-flex items-center gap-2 font-bold text-(--color-primary-700) hover:text-(--color-primary-900) underline underline-offset-4 transition-colors"
+                  className="min-h-11 inline-flex items-center gap-2 font-bold text-(--color-primary-700) hover:text-(--color-primary-900) underline underline-offset-4 transition-colors"
                 >
                   <svg className="w-4 h-4 text-(--color-primary-600) shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -68,7 +68,7 @@ export function WelcomePage() {
                   <span>{CLINIC_INFO.contact.phone}</span>
                 </a>
 
-                <span className="inline-flex items-center gap-2 text-(--color-text-muted) font-medium">
+                <span className="min-h-11 sm:min-h-0 inline-flex items-center gap-2 text-(--color-text-muted) font-medium">
                   <svg className="w-4 h-4 text-(--color-secondary-600) shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -76,7 +76,7 @@ export function WelcomePage() {
                   <span>{CLINIC_INFO.location.city}</span>
                 </span>
 
-                <span className="inline-flex items-center gap-2 text-(--color-text-muted) font-medium">
+                <span className="min-h-11 sm:min-h-0 inline-flex items-center gap-2 text-(--color-text-muted) font-medium">
                   <svg className="w-4 h-4 text-(--color-primary-500) shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -87,7 +87,7 @@ export function WelcomePage() {
 
             {/* Columna Derecha: Composición decorativa solo con CSS y SVG inline */}
             <div className="lg:col-span-5 flex justify-center items-center">
-              <div className="relative w-full max-w-sm h-48 sm:h-64 lg:h-80 flex items-center justify-center">
+              <div className="relative w-full max-w-sm h-40 sm:h-64 lg:h-80 flex items-center justify-center">
                 {/* Trama de puntos con radial-gradient */}
                 <div 
                   className="absolute inset-0 rounded-3xl opacity-40 pointer-events-none"
@@ -100,38 +100,38 @@ export function WelcomePage() {
 
                 {/* Cuadrado redondeado rotado con degradado accent-200 a secondary-200 */}
                 <div 
-                  className="w-40 h-40 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-3xl rotate-12 bg-linear-to-br from-(--color-accent-200) to-(--color-secondary-200) shadow-lg opacity-85 border border-(--color-accent-300)/40"
+                  className="w-32 h-32 sm:w-52 sm:h-52 lg:w-60 lg:h-60 rounded-3xl rotate-12 bg-linear-to-br from-(--color-accent-200) to-(--color-secondary-200) shadow-lg opacity-85 border border-(--color-accent-300)/40"
                   aria-hidden="true"
                 />
 
                 {/* Círculo flotante 1: Lenguaje */}
                 <div 
-                  className="absolute top-2 left-6 sm:top-4 sm:left-8 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-(--color-surface) shadow-md border border-(--color-accent-200) flex items-center justify-center text-(--color-primary-800) animate-float"
+                  className="absolute top-1 left-4 sm:top-4 sm:left-8 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-(--color-surface) shadow-md border border-(--color-accent-200) flex items-center justify-center text-(--color-primary-800) animate-float"
                   title="Terapia de Lenguaje"
                 >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                   </svg>
                 </div>
 
                 {/* Círculo flotante 2: Ocupacional */}
                 <div 
-                  className="absolute bottom-2 left-10 sm:bottom-4 sm:left-12 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-(--color-surface) shadow-md border border-(--color-secondary-200) flex items-center justify-center text-(--color-primary-800) animate-float"
+                  className="absolute bottom-1 left-8 sm:bottom-4 sm:left-12 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-(--color-surface) shadow-md border border-(--color-secondary-200) flex items-center justify-center text-(--color-primary-800) animate-float"
                   style={{ animationDelay: '-6s' }}
                   title="Terapia Ocupacional"
                 >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
                   </svg>
                 </div>
 
                 {/* Círculo flotante 3: Psicología y Psicopedagogía */}
                 <div 
-                  className="absolute top-8 right-6 sm:top-10 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-(--color-surface) shadow-md border border-(--color-primary-200) flex items-center justify-center text-(--color-primary-800) animate-float"
+                  className="absolute top-4 right-4 sm:top-10 sm:right-8 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-(--color-surface) shadow-md border border-(--color-primary-200) flex items-center justify-center text-(--color-primary-800) animate-float"
                   style={{ animationDelay: '-12s' }}
                   title="Psicología y Psicopedagogía"
                 >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
@@ -291,7 +291,7 @@ export function WelcomePage() {
                     </span>
                     <a
                       href={CLINIC_INFO.contact.phoneHref}
-                      className="text-white hover:text-(--color-secondary-200) font-bold text-lg underline underline-offset-4 transition-colors"
+                      className="text-white hover:text-(--color-secondary-200) font-bold text-lg underline underline-offset-4 transition-colors min-h-11 inline-flex items-center"
                     >
                       {CLINIC_INFO.contact.phone}
                     </a>
@@ -314,7 +314,7 @@ export function WelcomePage() {
                       href={CLINIC_INFO.location.directionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-(--color-secondary-300) hover:text-(--color-secondary-100) underline underline-offset-4 transition-colors"
+                      className="min-h-11 inline-flex items-center gap-1.5 text-sm font-bold text-(--color-secondary-300) hover:text-(--color-secondary-100) underline underline-offset-4 transition-colors"
                     >
                       <span>Cómo llegar en Google Maps</span>
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -332,7 +332,7 @@ export function WelcomePage() {
                 </span>
                 <ul className="space-y-1.5 text-sm">
                   {CLINIC_INFO.schedule.map((s, i) => (
-                    <li key={i} className="flex justify-between items-center text-white/90">
+                    <li key={i} className="flex flex-wrap justify-between items-center text-white/90 gap-1">
                       <span className="font-medium">{s.days}</span>
                       <span className="text-white/75">{s.hours}</span>
                     </li>
@@ -361,14 +361,14 @@ export function WelcomePage() {
       </main>
 
       {/* 5. Footer compacto de una sola fila */}
-      <footer className="mt-12 py-5 border-t border-(--color-border) bg-(--color-surface)/70 text-sm text-(--color-text-muted)">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <footer className="mt-12 py-5 pb-safe border-t border-(--color-border) bg-(--color-surface)/70 text-sm text-(--color-text-muted)">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <span>
             © {new Date().getFullYear()} {CLINIC_INFO.name}. Todos los derechos reservados.
           </span>
           <span>
             {CLINIC_INFO.location.city} ·{' '}
-            <a href={CLINIC_INFO.contact.phoneHref} className="hover:text-(--color-primary-700) underline underline-offset-2">
+            <a href={CLINIC_INFO.contact.phoneHref} className="min-h-11 inline-flex items-center hover:text-(--color-primary-700) underline underline-offset-2">
               {CLINIC_INFO.contact.phone}
             </a>
           </span>

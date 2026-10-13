@@ -124,60 +124,60 @@ export function PacienteDetail() {
     <div className="max-w-5xl mx-auto space-y-6 pb-20">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main)">
+          <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main) break-words">
             {paciente.nombre_completo}
           </h1>
-          <Link to="/pacientes" className="text-(--color-primary-600) hover:underline mt-2 inline-block font-medium">
+          <Link to="/pacientes" className="min-h-11 inline-flex items-center text-(--color-primary-600) hover:underline mt-1 sm:mt-2 font-medium">
             &larr; Volver a pacientes
           </Link>
         </div>
-        <Button onClick={() => navigate(`/pacientes/${id}/editar`)}>
+        <Button onClick={() => navigate(`/pacientes/${id}/editar`)} className="w-full sm:w-auto min-h-11">
           Editar Datos
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         
         {/* Datos Personales e Historial de Planes */}
         <div className="md:col-span-1 space-y-6">
-          <div className="bg-(--color-surface) p-5 md:p-6 rounded-xl border border-(--color-border) shadow-sm space-y-4">
+          <div className="bg-(--color-surface) p-4 sm:p-5 md:p-6 rounded-xl border border-(--color-border) shadow-sm space-y-4">
             <h2 className="text-xl font-semibold text-(--color-primary-700) border-b border-(--color-border) pb-2">Información</h2>
             
             <div>
               <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Cédula</p>
-              <p className="text-base text-(--color-text-main)">{paciente.cedula}</p>
+              <p className="text-base text-(--color-text-main) break-words">{paciente.cedula}</p>
             </div>
             <div>
               <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Edad</p>
-              <p className="text-base text-(--color-text-main)">{calcularEdad(paciente.fecha_nacimiento)}</p>
+              <p className="text-base text-(--color-text-main) break-words">{calcularEdad(paciente.fecha_nacimiento)}</p>
             </div>
             <div>
               <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Dirección</p>
-              <p className="text-base text-(--color-text-main)">{paciente.direccion}</p>
+              <p className="text-base text-(--color-text-main) break-words">{paciente.direccion}</p>
             </div>
           </div>
 
-          <div className="bg-(--color-surface) p-5 md:p-6 rounded-xl border border-(--color-border) shadow-sm space-y-4">
+          <div className="bg-(--color-surface) p-4 sm:p-5 md:p-6 rounded-xl border border-(--color-border) shadow-sm space-y-4">
             <h2 className="text-xl font-semibold text-(--color-primary-700) border-b border-(--color-border) pb-2">Familiares</h2>
             
             <div>
               <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Madre</p>
-              <p className="text-base text-(--color-text-main)">{paciente.madre_nombre}</p>
-              <p className="text-(--color-text-muted)">{paciente.madre_telefono}</p>
+              <p className="text-base text-(--color-text-main) break-words">{paciente.madre_nombre}</p>
+              <p className="text-(--color-text-muted) break-words">{paciente.madre_telefono}</p>
             </div>
             <div>
               <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Padre</p>
-              <p className="text-base text-(--color-text-main)">{paciente.padre_nombre}</p>
-              <p className="text-(--color-text-muted)">{paciente.padre_telefono}</p>
+              <p className="text-base text-(--color-text-main) break-words">{paciente.padre_nombre}</p>
+              <p className="text-(--color-text-muted) break-words">{paciente.padre_telefono}</p>
             </div>
             
             {paciente.contacto_nombre && (
               <div className="pt-2 border-t border-(--color-border)">
                 <p className="text-sm font-semibold uppercase text-(--color-text-muted) tracking-wider">Emergencia</p>
-                <p className="text-base text-(--color-text-main)">{paciente.contacto_nombre}</p>
-                <p className="text-(--color-text-muted)">{paciente.contacto_telefono}</p>
+                <p className="text-base text-(--color-text-main) break-words">{paciente.contacto_nombre}</p>
+                <p className="text-(--color-text-muted) break-words">{paciente.contacto_telefono}</p>
               </div>
             )}
           </div>
@@ -196,12 +196,15 @@ export function PacienteDetail() {
           
           {/* Citas Calendario */}
           <section className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-(--color-primary-700)">Calendario de Citas</h2>
-              <Button onClick={() => {
-                setFormInitialData({ paciente_id: id });
-                setModalFormOpen(true);
-              }}>
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+              <h2 className="text-xl font-semibold text-(--color-primary-700) break-words">Calendario de Citas</h2>
+              <Button 
+                onClick={() => {
+                  setFormInitialData({ paciente_id: id });
+                  setModalFormOpen(true);
+                }}
+                className="w-full sm:w-auto min-h-11"
+              >
                 + Agendar cita
               </Button>
             </div>
@@ -227,9 +230,9 @@ export function PacienteDetail() {
 
           {/* Planes de Tratamiento */}
           <section className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-(--color-primary-700)">Planes de Tratamiento</h2>
-              <Button variant="outline" onClick={() => navigate(`/pacientes/${id}/plan/nuevo`)}>
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+              <h2 className="text-xl font-semibold text-(--color-primary-700) break-words">Planes de Tratamiento</h2>
+              <Button variant="outline" onClick={() => navigate(`/pacientes/${id}/plan/nuevo`)} className="w-full sm:w-auto min-h-11">
                 + Nuevo Plan
               </Button>
             </div>
@@ -241,26 +244,26 @@ export function PacienteDetail() {
             ) : (
               <div className="space-y-4">
                 {paciente.planes_tratamiento.map((plan) => (
-                  <div key={plan.id} className="bg-(--color-surface) p-5 md:p-6 rounded-xl border border-(--color-border) shadow-sm flex flex-col gap-4">
-                    <div className="flex justify-between items-start border-b border-(--color-border) pb-4">
-                      <div>
+                  <div key={plan.id} className="bg-(--color-surface) p-4 sm:p-5 md:p-6 rounded-xl border border-(--color-border) shadow-sm flex flex-col gap-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center border-b border-(--color-border) pb-4 gap-3">
+                      <div className="min-w-0">
                         <p className="text-sm font-semibold text-(--color-text-muted)">{new Date(plan.fecha).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</p>
-                        <h3 className="text-xl font-bold text-(--color-text-main) mt-1">{plan.diagnostico}</h3>
+                        <h3 className="text-xl font-bold text-(--color-text-main) mt-1 break-words">{plan.diagnostico}</h3>
                       </div>
-                      <Button variant="outline" onClick={() => navigate(`/pacientes/${id}/plan/${plan.id}/editar`)}>
+                      <Button variant="outline" onClick={() => navigate(`/pacientes/${id}/plan/${plan.id}/editar`)} className="w-full sm:w-auto min-h-11">
                         Editar
                       </Button>
                     </div>
                     
                     <div>
                       <p className="text-sm font-semibold uppercase text-(--color-primary-700) tracking-wider mb-1">Objetivo Inicial</p>
-                      <p className="text-(--color-text-main) whitespace-pre-wrap">{plan.objetivo_inicial}</p>
+                      <p className="text-(--color-text-main) whitespace-pre-wrap break-words">{plan.objetivo_inicial}</p>
                     </div>
                     
                     {plan.objetivos_alcanzados && (
                       <div>
                         <p className="text-sm font-semibold uppercase text-(--color-success-700) tracking-wider mb-1">Objetivos Alcanzados</p>
-                        <p className="text-(--color-text-main) whitespace-pre-wrap">{plan.objetivos_alcanzados}</p>
+                        <p className="text-(--color-text-main) whitespace-pre-wrap break-words">{plan.objetivos_alcanzados}</p>
                       </div>
                     )}
                   </div>

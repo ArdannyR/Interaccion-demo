@@ -21,20 +21,20 @@ export function PerfilView() {
           </div>
         </div>
 
-        <div className="pt-14 pb-6 px-6 flex flex-col md:flex-row items-center gap-6">
+        <div className="pt-14 pb-6 px-4 sm:px-6 flex flex-col md:flex-row items-center gap-6">
           <div className="flex flex-col items-center md:items-start">
             <button 
               disabled 
-              className="px-4 py-2 bg-(--color-surface-hover) text-(--color-text-muted) rounded-lg font-medium cursor-not-allowed opacity-70"
+              className="min-h-11 px-4 py-2 bg-(--color-surface-hover) text-(--color-text-muted) rounded-lg font-medium cursor-not-allowed opacity-70"
             >
               Subir foto (Próximamente)
             </button>
           </div>
 
-          <div className="flex-1 space-y-4 text-center md:text-left w-full">
+          <div className="flex-1 space-y-4 text-center md:text-left w-full min-w-0">
             <div>
               <label className="text-sm font-semibold text-(--color-text-muted) uppercase tracking-wider">Nombres y Apellidos</label>
-              <p className="text-xl font-bold text-(--color-text-main)">{perfil?.nombres} {perfil?.apellidos}</p>
+              <p className="text-xl font-bold text-(--color-text-main) break-words">{perfil?.nombres} {perfil?.apellidos}</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

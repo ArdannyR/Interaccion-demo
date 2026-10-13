@@ -18,6 +18,24 @@ export function AppLayout() {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
+  // Bloquear scroll de la página cuando el drawer móvil está abierto
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  // Cerrar menú al cambiar de ruta
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = async () => {
     try {
       await authService.logout();
@@ -70,26 +88,30 @@ export function AppLayout() {
   const iniciales = perfil ? `${perfil.nombres?.charAt(0) || ''}${perfil.apellidos?.charAt(0) || ''}`.toUpperCase() : '??';
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-transparent relative overflow-x-clip">
+    <div className="min-h-dvh flex flex-col md:flex-row bg-transparent relative overflow-x-clip">
       {/* Fondo con manchas decorativas fijas detrás del contenido */}
       <div 
-        className="fixed top-0 right-0 w-96 h-96 rounded-full bg-(--color-accent-300)/15 blur-3xl pointer-events-none -z-10" 
+        className="fixed top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-(--color-accent-300)/15 blur-3xl pointer-events-none -z-10" 
         aria-hidden="true" 
       />
       <div 
-        className="fixed bottom-0 left-0 md:left-64 w-96 h-96 rounded-full bg-(--color-secondary-300)/15 blur-3xl pointer-events-none -z-10" 
+        className="fixed bottom-0 left-0 md:left-64 w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-(--color-secondary-300)/15 blur-3xl pointer-events-none -z-10" 
         aria-hidden="true" 
       />
 
       {/* Cabecera Móvil */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-(--color-surface)/85 backdrop-blur-md border-b border-(--color-border) sticky top-0 z-40 shadow-xs">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-(--color-accent-400) to-(--color-secondary-400) flex items-center justify-center font-black text-base text-(--color-primary-900) shadow-xs">
+      <div className="md:hidden flex items-center justify-between px-4 py-3 pt-safe bg-(--color-surface)/85 backdrop-blur-md border-b border-(--color-border) sticky top-0 z-40 shadow-xs">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-(--color-accent-400) to-(--color-secondary-400) flex items-center justify-center font-black text-base text-(--color-primary-900) shadow-xs shrink-0">
             I
           </div>
-          <span className="text-xl font-bold text-(--color-primary-800)">Interacción</span>
+          <span className="text-xl font-bold text-(--color-primary-800) truncate">Interacción</span>
         </div>
-        <button onClick={() => setMenuOpen(true)} className="p-2 text-(--color-primary-800) cursor-pointer" aria-label="Abrir menú">
+        <button 
+          onClick={() => setMenuOpen(true)} 
+          className="w-11 h-11 min-w-11 min-h-11 flex items-center justify-center rounded-lg text-(--color-primary-800) hover:bg-(--color-surface-hover) cursor-pointer" 
+          aria-label="Abrir menú"
+        >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
@@ -99,7 +121,7 @@ export function AppLayout() {
       {/* Mobile Drawer Overlay */}
       {menuOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 md:hidden animate-fade-up"
+          className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 md:hidden animate-fade-up overscroll-contain"
           style={{ animationDuration: '200ms' }}
           onClick={() => setMenuOpen(false)}
         />
@@ -107,7 +129,7 @@ export function AppLayout() {
 
       {/* Barra lateral */}
       <aside 
-        className={`fixed inset-y-0 left-0 z-50 h-dvh w-72 md:w-64 bg-linear-to-b from-(--color-primary-700) to-(--color-primary-900) text-white shadow-2xl transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col ${
+        className={`fixed inset-y-0 left-0 z-50 h-dvh w-72 max-w-[85vw] md:w-64 bg-linear-to-b from-(--color-primary-700) to-(--color-primary-900) text-white shadow-2xl transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col overscroll-contain ${
           menuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -123,13 +145,13 @@ export function AppLayout() {
         </div>
 
         {/* Marca: logotipo con degradado + I en primary-900 + línea de 3rem */}
-        <div className="p-6 flex items-center justify-between border-b border-white/10 relative z-10">
-          <div className="flex items-center gap-3">
+        <div className="p-4 sm:p-6 pt-safe flex items-center justify-between border-b border-white/10 relative z-10">
+          <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-xl bg-linear-to-br from-(--color-accent-400) to-(--color-secondary-400) flex items-center justify-center font-black text-xl text-(--color-primary-900) shadow-sm shrink-0">
               I
             </div>
-            <div>
-              <span className="text-xl font-bold tracking-wide text-white block leading-tight">
+            <div className="min-w-0">
+              <span className="text-xl font-bold tracking-wide text-white block leading-tight truncate">
                 Interacción
               </span>
               <div 
@@ -138,7 +160,11 @@ export function AppLayout() {
               />
             </div>
           </div>
-          <button className="md:hidden p-1 text-white/70 hover:text-white" onClick={() => setMenuOpen(false)} aria-label="Cerrar menú">
+          <button 
+            className="md:hidden w-11 h-11 min-w-11 min-h-11 flex items-center justify-center text-white/70 hover:text-white rounded-lg cursor-pointer" 
+            onClick={() => setMenuOpen(false)} 
+            aria-label="Cerrar menú"
+          >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -146,7 +172,7 @@ export function AppLayout() {
         </div>
         
         {/* Navegación */}
-        <nav className="flex-1 min-h-0 px-3 py-4 space-y-1.5 overflow-y-auto relative z-10">
+        <nav className="flex-1 min-h-0 px-3 py-4 space-y-1.5 overflow-y-auto overscroll-contain relative z-10">
           <p className="text-[0.7rem] font-bold uppercase tracking-widest text-(--color-secondary-300) px-3 mb-2">
             MENÚ
           </p>
@@ -157,7 +183,7 @@ export function AppLayout() {
               to={item.to}
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
-                `group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-base transition-all ${
+                `group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-base min-h-11 transition-all ${
                   isActive 
                     ? 'bg-white/10 text-white font-semibold shadow-inner' 
                     : 'text-white/80 hover:bg-white/10 hover:text-white'
@@ -199,7 +225,7 @@ export function AppLayout() {
         </nav>
 
         {/* Bloque inferior de usuario y salir */}
-        <div className="p-4 bg-black/15 backdrop-blur-md border-t border-white/10 shrink-0 relative z-10">
+        <div className="p-4 pb-safe bg-black/15 backdrop-blur-md border-t border-white/10 shrink-0 relative z-10">
           <div className="flex items-center gap-3 mb-3.5 px-1">
             <div className="w-10 h-10 rounded-full bg-linear-to-br from-(--color-accent-400) to-(--color-secondary-400) flex items-center justify-center font-black text-sm text-(--color-primary-900) ring-2 ring-(--color-accent-200) shadow-xs shrink-0">
               {iniciales}
@@ -214,7 +240,7 @@ export function AppLayout() {
 
           <button
             onClick={handleLogout}
-            className="flex items-center justify-center gap-2 px-3 py-2 w-full rounded-xl text-sm font-semibold text-(--color-accent-200) bg-(--color-accent-400)/15 hover:bg-(--color-accent-400)/30 border border-(--color-accent-400)/30 transition-all cursor-pointer"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 w-full min-h-11 rounded-xl text-sm font-semibold text-(--color-accent-200) bg-(--color-accent-400)/15 hover:bg-(--color-accent-400)/30 border border-(--color-accent-400)/30 transition-all cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
@@ -225,7 +251,7 @@ export function AppLayout() {
       </aside>
 
       {/* Contenido Principal */}
-      <main key={location.pathname} className="flex-1 md:ml-64 min-w-0 p-3 md:p-5 animate-fade-up relative z-10">
+      <main key={location.pathname} className="flex-1 md:ml-64 min-w-0 p-3 md:p-5 pb-8 pb-safe animate-fade-up relative z-10">
         <Outlet />
       </main>
     </div>

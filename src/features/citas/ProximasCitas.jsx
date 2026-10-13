@@ -33,13 +33,13 @@ export function ProximasCitas({ citas = [], modo = 'completo', onClickCita }) {
             <button 
               key={cita.id} 
               onClick={() => onClickCita && onClickCita(cita)}
-              className="w-full p-3 flex justify-between items-center text-left hover:bg-(--color-primary-50) transition-colors group cursor-pointer"
+              className="w-full min-h-11 p-3 flex justify-between items-center text-left hover:bg-(--color-primary-50) active:bg-(--color-primary-100) transition-colors group cursor-pointer gap-2"
             >
-              <div>
-                <p className="font-semibold text-(--color-text-main) group-hover:text-(--color-primary-700)">{textoPrincipal}</p>
-                <p className="text-sm text-(--color-text-muted) capitalize">{date}</p>
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-(--color-text-main) group-hover:text-(--color-primary-700) truncate">{textoPrincipal}</p>
+                <p className="text-sm text-(--color-text-muted) capitalize truncate">{date}</p>
               </div>
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <p className="font-bold text-(--color-primary-600)">{formatTime(cita.hora_inicio)}</p>
               </div>
             </button>

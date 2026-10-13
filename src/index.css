@@ -65,6 +65,7 @@
 
   --animate-fade-up: fadeUp 400ms ease-out forwards;
   --animate-scale-in: scaleIn 300ms ease-out forwards;
+  --animate-slide-up: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-shimmer: shimmer 1.5s infinite linear;
   --animate-float: floatBlob 20s infinite ease-in-out alternate;
   
@@ -75,6 +76,10 @@
   @keyframes scaleIn {
     0% { opacity: 0; transform: scale(0.95); }
     100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideUp {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
   }
   @keyframes shimmer {
     0% { background-position: -200% 0; }
@@ -108,6 +113,7 @@
   :root {
     --animate-fade-up: none !important;
     --animate-scale-in: none !important;
+    --animate-slide-up: none !important;
     --animate-float: none !important;
   }
   *, *::before, *::after {
@@ -121,6 +127,7 @@
 :root[data-motion="reducidas"] {
   --animate-fade-up: none !important;
   --animate-scale-in: none !important;
+  --animate-slide-up: none !important;
   --animate-float: none !important;
 }
 :root[data-motion="reducidas"] *, 
@@ -132,8 +139,43 @@
   scroll-behavior: auto !important;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 body {
-  @apply bg-(--color-background) text-(--color-text-main) font-sans antialiased min-h-screen relative overflow-x-hidden;
+  @apply bg-(--color-background) text-(--color-text-main) font-sans antialiased min-h-dvh relative;
+}
+
+button, a, [role="button"], select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 767px) {
+  input, select, textarea {
+    font-size: max(1rem, 16px);
+  }
+}
+
+/* Safe Area Inset utilities */
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pl-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+.pr-safe {
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 /* Background gradient for body */

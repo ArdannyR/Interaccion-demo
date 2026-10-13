@@ -104,22 +104,22 @@ export function TerapeutaDetail() {
     <div className="max-w-5xl mx-auto space-y-6 pb-20">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-center gap-6 bg-(--color-surface) p-6 rounded-2xl border border-(--color-border) shadow-sm">
-        <div className="w-20 h-20 rounded-full bg-(--color-primary-100) flex items-center justify-center text-2xl font-bold text-(--color-primary-800)">
+      <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 bg-(--color-surface) p-4 sm:p-6 rounded-2xl border border-(--color-border) shadow-sm text-center md:text-left">
+        <div className="w-20 h-20 rounded-full bg-(--color-primary-100) flex items-center justify-center text-2xl font-bold text-(--color-primary-800) shrink-0">
           {iniciales}
         </div>
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main)">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main) break-words">
             {terapeuta.nombres} {terapeuta.apellidos}
           </h1>
-          <p className="text-lg text-(--color-text-muted) mt-2">{terapeuta.especialidad || 'Terapeuta General'}</p>
-          <Link to="/terapeutas" className="text-(--color-primary-600) hover:underline mt-4 inline-block font-medium">
+          <p className="text-base sm:text-lg text-(--color-text-muted) mt-1 sm:mt-2 break-words">{terapeuta.especialidad || 'Terapeuta General'}</p>
+          <Link to="/terapeutas" className="min-h-11 inline-flex items-center text-(--color-primary-600) hover:underline mt-2 sm:mt-4 font-medium">
             &larr; Volver al directorio
           </Link>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         
         {/* Widget de Próximas Citas */}
         <div className="md:col-span-1 space-y-6">
@@ -134,12 +134,15 @@ export function TerapeutaDetail() {
         <div className="md:col-span-2 space-y-6">
           
           <section className="space-y-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-(--color-primary-700)">Calendario de {terapeuta.nombres}</h2>
-              <Button onClick={() => {
-                setFormInitialData({ profesional_id: id });
-                setModalFormOpen(true);
-              }}>
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+              <h2 className="text-xl font-semibold text-(--color-primary-700) break-words">Calendario de {terapeuta.nombres}</h2>
+              <Button 
+                onClick={() => {
+                  setFormInitialData({ profesional_id: id });
+                  setModalFormOpen(true);
+                }}
+                className="w-full sm:w-auto min-h-11"
+              >
                 + Agendar cita
               </Button>
             </div>

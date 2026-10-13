@@ -48,29 +48,29 @@ export function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-transparent relative overflow-hidden flex flex-col">
+    <div className="min-h-dvh bg-transparent relative overflow-x-clip overflow-y-auto flex flex-col">
       {/* Background blobs */}
       <div className="absolute inset-0 bg-linear-to-br from-(--color-primary-50) via-(--color-background) to-(--color-primary-100)/40 -z-20 pointer-events-none" />
-      <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-(--color-primary-300)/20 rounded-full blur-3xl animate-float -z-10 pointer-events-none" />
-      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-(--color-primary-400)/20 rounded-full blur-3xl animate-float -z-10 pointer-events-none" style={{ animationDelay: '-10s' }} />
+      <div className="hidden sm:block absolute top-[10%] left-[10%] w-64 h-64 sm:w-96 sm:h-96 bg-(--color-primary-300)/20 rounded-full blur-3xl animate-float -z-10 pointer-events-none" />
+      <div className="hidden sm:block absolute bottom-[10%] right-[10%] w-64 h-64 sm:w-96 sm:h-96 bg-(--color-primary-400)/20 rounded-full blur-3xl animate-float -z-10 pointer-events-none" style={{ animationDelay: '-10s' }} />
 
-      <header className="p-6 relative z-10">
+      <header className="p-4 sm:p-6 pt-safe relative z-10">
         <Link 
           to="/" 
-          className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-(--color-primary-700) to-(--color-primary-500) hover:from-(--color-primary-800) hover:to-(--color-primary-600) transition-all inline-block"
+          className="text-base sm:text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-(--color-primary-700) to-(--color-primary-500) hover:from-(--color-primary-800) hover:to-(--color-primary-600) transition-all inline-flex items-center min-h-11 truncate max-w-full"
         >
           &larr; Volver a {CLINIC_INFO.name}
         </Link>
       </header>
       
-      <main className="flex-1 flex items-center justify-center p-6 relative z-10">
-        <Card className="w-full max-w-md p-8 shadow-2xl border border-white/50 bg-(--color-surface)/80 backdrop-blur-xl animate-scale-in">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-(--color-text-main)">Ingresar al sistema</h1>
-            <p className="text-lg text-(--color-text-muted) mt-2">Acceso para personal del consultorio</p>
+      <main className="flex-1 flex items-start sm:items-center justify-center p-4 sm:p-6 pb-safe relative z-10">
+        <Card className="w-full max-w-md p-5 sm:p-8 shadow-2xl border border-white/50 bg-(--color-surface)/80 backdrop-blur-xl animate-scale-in">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-(--color-text-main) break-words">Ingresar al sistema</h1>
+            <p className="text-base sm:text-lg text-(--color-text-muted) mt-1.5 break-words">Acceso para personal del consultorio</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <Input
               label="Correo electrónico"
               type="email"
@@ -78,6 +78,8 @@ export function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@correo.com"
               disabled={loading}
+              autoComplete="email"
+              inputMode="email"
               required
             />
             
@@ -88,18 +90,19 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               disabled={loading}
+              autoComplete="current-password"
               required
             />
 
             {error && (
-              <div className="p-4 bg-(--color-danger-50)/90 backdrop-blur-sm text-(--color-danger-700) rounded-xl text-lg border border-(--color-danger-200) animate-fade-up">
+              <div className="p-3.5 sm:p-4 bg-(--color-danger-50)/90 backdrop-blur-sm text-(--color-danger-700) rounded-xl text-base sm:text-lg border border-(--color-danger-200) animate-fade-up break-words">
                 {error}
               </div>
             )}
 
             <Button 
               type="submit" 
-              className="w-full text-xl py-4 mt-2" 
+              className="w-full text-lg sm:text-xl min-h-11 py-3 sm:py-4 mt-2" 
               isLoading={loading}
             >
               Entrar

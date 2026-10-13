@@ -110,28 +110,28 @@ export function PacienteForm() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-20">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main)">
+    <div className="max-w-4xl mx-auto space-y-6 pb-20 pb-safe">
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main) break-words">
           {isEditing ? 'Editar Paciente' : 'Añadir Paciente'}
         </h1>
-        <Button variant="outline" onClick={() => navigate(-1)}>
+        <Button variant="outline" onClick={() => navigate(-1)} className="w-full sm:w-auto min-h-11">
           Cancelar
         </Button>
       </div>
 
       {error && (
-        <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200)">
+        <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200) break-words">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-(--color-surface) p-5 md:p-6 rounded-xl shadow-sm border border-(--color-border) space-y-6">
+      <form onSubmit={handleSubmit} className="bg-(--color-surface) p-4 sm:p-5 md:p-6 rounded-xl shadow-sm border border-(--color-border) space-y-6">
         
         {/* Sección: Datos del Niño */}
         <section className="space-y-4">
           <h2 className="text-xl font-semibold text-(--color-primary-700) border-b border-(--color-border) pb-2">Datos del Niño</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <Input
               label="Número de cédula *"
               name="cedula"
@@ -149,6 +149,7 @@ export function PacienteForm() {
               name="nombre_completo"
               value={formData.nombre_completo}
               onChange={handleChange}
+              autoComplete="name"
               required
             />
             <DateInput
@@ -165,6 +166,7 @@ export function PacienteForm() {
               name="direccion"
               value={formData.direccion}
               onChange={handleChange}
+              autoComplete="street-address"
               required
             />
           </div>
@@ -173,18 +175,21 @@ export function PacienteForm() {
         {/* Sección: Padres */}
         <section className="space-y-4">
           <h2 className="text-xl font-semibold text-(--color-primary-700) border-b border-(--color-border) pb-2">Datos de los Padres</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <Input
               label="Nombre de la madre *"
               name="madre_nombre"
               value={formData.madre_nombre}
               onChange={handleChange}
+              autoComplete="name"
               required
             />
             <Input
               label="Teléfono de la madre *"
               name="madre_telefono"
               type="tel"
+              inputMode="tel"
+              autoComplete="tel"
               value={formData.madre_telefono}
               onChange={handleChange}
               required
@@ -194,12 +199,15 @@ export function PacienteForm() {
               name="padre_nombre"
               value={formData.padre_nombre}
               onChange={handleChange}
+              autoComplete="name"
               required
             />
             <Input
               label="Teléfono del padre *"
               name="padre_telefono"
               type="tel"
+              inputMode="tel"
+              autoComplete="tel"
               value={formData.padre_telefono}
               onChange={handleChange}
               required
@@ -210,17 +218,20 @@ export function PacienteForm() {
         {/* Sección: Contacto Emergencia */}
         <section className="space-y-4">
           <h2 className="text-xl font-semibold text-(--color-primary-700) border-b border-(--color-border) pb-2">Otro familiar a quien contactar</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <Input
               label="Nombre (opcional)"
               name="contacto_nombre"
               value={formData.contacto_nombre}
               onChange={handleChange}
+              autoComplete="name"
             />
             <Input
               label="Teléfono (opcional)"
               name="contacto_telefono"
               type="tel"
+              inputMode="tel"
+              autoComplete="tel"
               value={formData.contacto_telefono}
               onChange={handleChange}
             />
@@ -230,13 +241,14 @@ export function PacienteForm() {
                 name="contacto_direccion"
                 value={formData.contacto_direccion}
                 onChange={handleChange}
+                autoComplete="street-address"
               />
             </div>
           </div>
         </section>
 
-        <div className="pt-6">
-          <Button type="submit" disabled={saving} className="w-full text-lg py-3">
+        <div className="pt-4 sm:pt-6">
+          <Button type="submit" disabled={saving} className="w-full text-lg min-h-11 py-3">
             {saving ? <Spinner size="sm" color="text-white" /> : (isEditing ? 'Guardar Cambios' : 'Guardar y Continuar a Plan')}
           </Button>
         </div>

@@ -211,7 +211,7 @@ export function HorariosView() {
         title={esPropio ? 'Mi horario' : `Horario de ${selectedProf ? `${selectedProf.nombres} ${selectedProf.apellidos}` : 'Terapeuta'}`}
         subtitle={!esPropio && selectedProf?.especialidad ? selectedProf.especialidad : undefined}
         actions={
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             {perfil?.rol === 'directora' && (
               <ProfessionalPicker 
                 profesionales={listaProfesionales}
@@ -222,7 +222,7 @@ export function HorariosView() {
             <Button 
               variant="accent"
               onClick={handleNuevaCita} 
-              className="whitespace-nowrap"
+              className="w-full sm:w-auto min-h-11"
             >
               + Nueva cita
             </Button>

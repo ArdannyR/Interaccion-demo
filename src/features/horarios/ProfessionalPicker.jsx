@@ -96,7 +96,7 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
   };
 
   return (
-    <div ref={containerRef} className="relative w-full md:w-auto" onKeyDown={handleKeyDown}>
+    <div ref={containerRef} className="relative w-full sm:w-auto" onKeyDown={handleKeyDown}>
       <button
         type="button"
         aria-haspopup="listbox"
@@ -106,7 +106,7 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
           setIsOpen(!isOpen);
           setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
         }}
-        className="w-full md:w-auto flex items-center justify-between gap-3 px-4 py-2 rounded-xl border-2 border-(--color-primary-400) bg-(--color-surface) hover:bg-(--color-surface-hover) transition-all focus:outline-none focus:ring-4 focus:ring-(--color-primary-100) cursor-pointer"
+        className="w-full sm:w-auto min-h-11 flex items-center justify-between gap-3 px-3.5 py-2 rounded-xl border-2 border-(--color-primary-400) bg-(--color-surface) hover:bg-(--color-surface-hover) active:bg-(--color-primary-50) transition-all focus:outline-none focus:ring-4 focus:ring-(--color-primary-100) cursor-pointer"
       >
         <div className="flex items-center gap-3 text-left min-w-0">
           <div className="w-9 h-9 rounded-full bg-(--color-primary-100) text-(--color-primary-800) font-bold text-sm flex items-center justify-center shrink-0 border border-(--color-primary-200)">
@@ -140,7 +140,7 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
           role="listbox"
           tabIndex={-1}
           aria-activedescendant={focusedIndex >= 0 ? `prof-opt-${profesionales[focusedIndex]?.id}` : undefined}
-          className="absolute left-0 right-0 md:right-auto md:w-80 top-full mt-2 z-30 bg-(--color-surface) rounded-xl shadow-xl border border-(--color-border) py-1.5 max-h-80 overflow-y-auto animate-scale-in"
+          className="absolute left-0 right-0 sm:right-auto sm:w-80 top-full mt-2 z-30 bg-(--color-surface) rounded-xl shadow-xl border border-(--color-border) py-1.5 max-h-[60dvh] overflow-y-auto overscroll-contain animate-scale-in"
         >
           {profesionales.map((prof, index) => {
             const isSelected = prof.id === selectedId;
@@ -154,7 +154,7 @@ export function ProfessionalPicker({ profesionales = [], selectedId, onSelect })
                 aria-selected={isSelected}
                 onClick={() => handleSelectOption(prof.id)}
                 onMouseEnter={() => setFocusedIndex(index)}
-                className={`min-h-[2.75rem] px-3.5 py-2 flex items-center justify-between gap-3 cursor-pointer transition-colors ${
+                className={`min-h-11 px-3.5 py-2 flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                   isSelected ? 'bg-(--color-primary-50)' : isFocused ? 'bg-(--color-surface-hover)' : ''
                 }`}
               >

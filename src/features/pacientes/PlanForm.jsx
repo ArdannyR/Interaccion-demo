@@ -119,23 +119,23 @@ export function PlanForm() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-20">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main)">
+    <div className="max-w-4xl mx-auto space-y-6 pb-20 pb-safe">
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+        <h1 className="text-2xl md:text-3xl font-bold text-(--color-text-main) break-words">
           {isEditing ? 'Editar Plan de Tratamiento' : 'Nuevo Plan de Tratamiento'}
         </h1>
-        <Button variant="outline" onClick={() => navigate('/pacientes')}>
+        <Button variant="outline" onClick={() => navigate('/pacientes')} className="w-full sm:w-auto min-h-11">
           Cancelar
         </Button>
       </div>
 
       {paciente && (
         <div className="bg-(--color-primary-50) border border-(--color-primary-200) rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
+          <div className="min-w-0">
             <p className="text-sm text-(--color-primary-700) font-semibold uppercase tracking-wider">Paciente</p>
-            <p className="text-xl font-bold text-(--color-text-main)">{paciente.nombre_completo}</p>
+            <p className="text-xl font-bold text-(--color-text-main) break-words">{paciente.nombre_completo}</p>
           </div>
-          <div className="md:text-right">
+          <div className="md:text-right shrink-0">
             <p className="text-sm text-(--color-primary-700) font-semibold uppercase tracking-wider">Edad</p>
             <p className="text-xl font-bold text-(--color-text-main)">{calcularEdad(paciente.fecha_nacimiento)}</p>
           </div>
@@ -143,14 +143,14 @@ export function PlanForm() {
       )}
 
       {error && (
-        <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200)">
+        <div className="bg-(--color-danger-50) text-(--color-danger-700) p-4 rounded-xl border border-(--color-danger-200) break-words">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-(--color-surface) p-5 md:p-6 rounded-xl shadow-sm border border-(--color-border) space-y-6">
+      <form onSubmit={handleSubmit} className="bg-(--color-surface) p-4 sm:p-5 md:p-6 rounded-xl shadow-sm border border-(--color-border) space-y-6">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <Input
             label="Diagnóstico *"
             name="diagnostico"
@@ -188,8 +188,8 @@ export function PlanForm() {
           <p className="text-sm text-(--color-text-muted)">Se completa más adelante</p>
         </div>
 
-        <div className="pt-6">
-          <Button type="submit" disabled={saving} className="w-full text-lg py-3">
+        <div className="pt-4 sm:pt-6">
+          <Button type="submit" disabled={saving} className="w-full text-lg min-h-11 py-3">
             {saving ? <Spinner size="sm" color="text-white" /> : 'Guardar Plan'}
           </Button>
         </div>

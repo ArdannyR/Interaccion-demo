@@ -30,7 +30,7 @@ export function TerapeutasList() {
       <PageHeader title="Terapeutas" />
 
       {loading ? (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
           {[1,2,3,4,5,6].map(i => <div key={i} className="skeleton h-[13rem]" />)}
         </div>
       ) : error ? (
@@ -42,13 +42,13 @@ export function TerapeutasList() {
           No se encontraron terapeutas activos.
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4">
           {terapeutas.map((t, idx) => {
             const isAccent = idx % 2 === 0;
             return (
               <Card 
                 key={t.id} 
-                className="p-0 flex flex-col items-stretch text-center hover:shadow-lg transition-all hover:border-(--color-primary-300) cursor-pointer overflow-hidden"
+                className="p-0 flex flex-col items-stretch text-center hover:shadow-lg active:scale-[0.98] transition-all hover:border-(--color-primary-300) cursor-pointer overflow-hidden"
                 onClick={() => navigate(`/terapeutas/${t.id}`)}
               >
                 <div className={`p-5 flex flex-col items-center ${isAccent ? 'bg-(--color-accent-50)' : 'bg-(--color-secondary-50)'}`}>
